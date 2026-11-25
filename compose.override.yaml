@@ -1,18 +1,18 @@
-
 services:
-###> symfony/mailer ###
+  app:
+    environment:
+      MAILER_DSN: smtp://mailer:1025
+
   mailer:
     image: axllent/mailpit
-    ports:
-      - "1025"
-      - "8025"
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
-###< symfony/mailer ###
+    ports:
+      - "${MAILPIT_HTTP_PORT:-8026}:8025"
+    networks:
+      - app
 
-###> doctrine/doctrine-bundle ###
   database:
     ports:
-      - "5432"
-###< doctrine/doctrine-bundle ###
+      - "${POSTGRES_PORT:-5432}:5432"

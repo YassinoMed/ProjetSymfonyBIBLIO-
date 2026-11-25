@@ -8,3 +8,13 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+.DS_Store
+/.php-cs-fixer.cache
+/.phpunit.cache
+/.phpstan.cache
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###

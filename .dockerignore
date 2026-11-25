@@ -1,0 +1,13 @@
+.git
+.github
+.dockerignore
+.DS_Store
+.env.local
+.env.*.local
+.php-cs-fixer.cache
+.phpunit.cache
+docs
+node_modules
+tests
+var
+vendor
