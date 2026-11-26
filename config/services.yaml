@@ -8,6 +8,17 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     app.agent.max_history_messages: 10
+    app.policy:
+        loan_duration_days: 21
+        max_active_loans: 5
+        max_renewals: 1
+        renewal_duration_days: 14
+        daily_penalty_eur: 0.20
+        max_penalty_per_book_eur: 10.0
+        blocking_penalty_threshold_eur: 10.0
+        blocking_overdue_days: 30
+        max_reservations: 3
+        reservation_pickup_days: 5
 
 services:
     # default configuration for services in *this* file

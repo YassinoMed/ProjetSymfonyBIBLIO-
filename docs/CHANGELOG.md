@@ -17,6 +17,7 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) — versionnag
 - Journalisation technique des appels LLM (`E1.5`) : enregistrement de `duration_ms`, `http_status`, `status`, `attempt` et compteurs `usage` optionnels dans `OpenAiCompatibleLlmClient` sans contenu ni clé API ; mise à jour de `docs/05-developpement.md` et `docs/06-agent-ia.md`.
 - Journal d'audit persistant (`E3.1`) : entité `AuditLog`, `AuditLogRepository`, service `AuditLogger` et migration Doctrine associée.
 - Registre et parseur d'outils d'agent (`E3.2`) : `AgentToolInterface`, `AgentToolRegistry`, `ParsedToolCall` et `ToolCallParser` (protocole JSON strict isolé).
+- Outils de lecture catalogue et règlement (`E3.3`) : `SearchBooksTool`, `GetBookTool`, `GetPolicyTool` (alimenté par `app.policy` dans `config/services.yaml`), `BookCatalogFormatter` et `BookRepository::searchCatalog`.
 
 ### Sécurité
 - La clé Gemini n'est jamais écrite dans `.env`, les logs ou le navigateur ; elle transite par l'en-tête `x-goog-api-key`.

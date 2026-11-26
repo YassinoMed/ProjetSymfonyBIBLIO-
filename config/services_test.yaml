@@ -15,3 +15,8 @@ services:
         public: true
         autowire: true
         autoconfigure: true
+
+    App\Agent\Tool\AgentToolRegistry:
+        public: true
+        autowire: true
+        autoconfigure: true
