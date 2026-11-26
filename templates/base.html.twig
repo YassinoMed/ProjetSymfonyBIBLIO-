@@ -4,35 +4,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Bibliothèque{% endblock %}</title>
+        <meta name="description" content="{% block description %}Bibliothèque — gestion des prêts, réservations et du catalogue.{% endblock %}">
         <link rel="stylesheet" href="{{ asset('build/app.css') }}">
         <script type="module" src="{{ asset('build/app.js') }}"></script>
     </head>
-    <body>
-        <header class="site-header">
-            <div class="site-header__inner">
-                <a class="brand" href="{{ path('app_home') }}">Bibliothèque</a>
-                <nav class="site-nav">
-                    {% if app.user %}
-                        {% if is_granted('ROLE_MEMBER') %}
-                            <a href="{{ path('app_member') }}">Mon espace</a>
-                        {% endif %}
-                        {% if is_granted('ROLE_LIBRARIAN') %}
-                            <a href="{{ path('app_librarian') }}">Bibliothécaire</a>
-                        {% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('app_admin') }}">Administration</a>
-                        {% endif %}
-                        <span class="user-email">{{ app.user.userIdentifier }}</span>
-                        <form method="post" action="{{ path('app_logout') }}">
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
-                            <button type="submit" class="link-button">Se déconnecter</button>
-                        </form>
-                    {% else %}
-                        <a href="{{ path('app_login') }}">Connexion</a>
-                    {% endif %}
-                </nav>
-            </div>
-        </header>
+    <body class="{% block body_class %}page{% endblock %}">
+        {% block header %}
+            {% include 'partials/site-header.html.twig' %}
+        {% endblock %}
 
         {% for type, messages in app.flashes %}
             {% for message in messages %}
@@ -40,12 +19,12 @@
             {% endfor %}
         {% endfor %}
 
-        <main class="site-main">
+        <main class="{% block main_class %}site-main{% endblock %}">
             {% block body %}{% endblock %}
         </main>
 
-        <footer class="site-footer">
-            <p>Bibliothèque — gestion des prêts, réservations et du catalogue.</p>
-        </footer>
+        {% block footer %}
+            {% include 'partials/site-footer.html.twig' %}
+        {% endblock %}
     </body>
 </html>

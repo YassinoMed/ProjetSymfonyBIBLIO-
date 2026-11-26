@@ -3,8 +3,8 @@
 ## Critères d'acceptation
 
 ### Catalogue
-- [ ] Un bibliothécaire crée, modifie et retire un livre et ses exemplaires.
-- [ ] La recherche par titre, auteur ou catégorie renvoie les bons résultats avec la disponibilité.
+- [x] Un bibliothécaire crée, modifie et retire un livre et ses exemplaires.
+- [x] La recherche par titre, auteur ou catégorie renvoie les bons résultats avec la disponibilité.
 
 ### Emprunts
 - [x] Un membre ne peut pas dépasser 5 livres empruntés.

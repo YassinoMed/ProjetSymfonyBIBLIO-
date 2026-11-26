@@ -1,0 +1,53 @@
+{% extends 'app/layout.html.twig' %}
+
+{% block title %}{{ book.id ? 'Modifier un livre' : 'Nouveau livre' }} — La Bibliothèque{% endblock %}
+
+{% block dashboard %}
+<section class="dashboard-welcome">
+    <div>
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Catalogue</p>
+        <h1>{{ book.id ? book.title : 'Nouveau livre' }}</h1>
+    </div>
+    <div class="dashboard-welcome__actions">
+        <a class="button" href="{{ path('app_librarian_catalog') }}">Retour au catalogue</a>
+    </div>
+</section>
+
+<section class="dashboard-panel">
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="button button--primary" type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+</section>
+
+{% if copyForm is not null %}
+    <section class="dashboard-panel">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">Inventaire</p><h2>Exemplaires ({{ book.copies|length }})</h2></div>
+        </div>
+
+        <ul class="loan-list">
+            {% for copy in book.copies %}
+                <li class="loan-row">
+                    <div>
+                        <strong>{{ copy.barcode }}</strong>
+                        <small>{{ copy.status }} · {{ copy.condition }}</small>
+                    </div>
+                    <form method="post" action="{{ path('app_librarian_copy_delete', {id: copy.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_copy_' ~ copy.id) }}">
+                        <button class="button button--small button--ghost" type="submit">Retirer</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="muted">Aucun exemplaire pour ce livre.</li>
+            {% endfor %}
+        </ul>
+
+        {{ form_start(copyForm) }}
+            {{ form_widget(copyForm) }}
+            <button class="button button--primary" type="submit">Ajouter un exemplaire</button>
+        {{ form_end(copyForm) }}
+    </section>
+{% endif %}
+{% endblock %}
+

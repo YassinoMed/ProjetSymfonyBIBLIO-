@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Tests\Functional;
 
 use App\DataFixtures\AppFixtures;
+use App\Entity\Author;
+use App\Entity\Book;
+use App\Entity\Category;
+use App\Entity\Copy;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -15,13 +19,25 @@ final class PageControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
 
+    private EntityManagerInterface $entityManager;
+
     protected function setUp(): void
     {
         $this->client = static::createClient();
 
-        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
-        $entityManager->createQuery('DELETE FROM App\Entity\User u')->execute();
-        $entityManager->clear();
+        $this->entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Penalty p')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Loan l')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Reservation r')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Copy c')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Book b')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Author a')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Category cat')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Member m')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\User u')->execute();
+        $this->entityManager->clear();
+
+        $this->seedCatalog();
     }
 
     public function testHomePageShowsThePublicCollection(): void
@@ -90,6 +106,40 @@ final class PageControllerTest extends WebTestCase
         self::assertGreaterThan(0, $crawler->filter('[data-audit-row]')->count());
     }
 
+    private function seedCatalog(): void
+    {
+        $category = (new Category())->setName('Imaginaire');
+        $author = (new Author())->setName('Delacroix')->setFirstname('Claire');
+        $this->entityManager->persist($category);
+        $this->entityManager->persist($author);
+
+        $titles = [
+            ['Atlas des constellations disparues', 2022],
+            ['Les Jardins de verre', 2021],
+            ['Mémoires d’un relieur', 2019],
+        ];
+
+        foreach ($titles as $index => [$title, $year]) {
+            $book = (new Book())
+                ->setTitle($title)
+                ->setIsbn('978207000000'.$index)
+                ->setPublicationYear($year)
+                ->setCategory($category)
+                ->addAuthor($author);
+            $copy = (new Copy())
+                ->setBarcode('BC-SEED-'.$index)
+                ->setStatus('disponible')
+                ->setCondition('bon')
+                ->setBook($book);
+
+            $this->entityManager->persist($book);
+            $this->entityManager->persist($copy);
+        }
+
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+    }
+
     private function loginAs(string $email, string $role): void
     {
         $container = self::getContainer();
@@ -101,9 +151,8 @@ final class PageControllerTest extends WebTestCase
             $container->get(UserPasswordHasherInterface::class)->hashPassword($user, AppFixtures::DEMO_PASSWORD),
         );
 
-        $entityManager = $container->get(EntityManagerInterface::class);
-        $entityManager->persist($user);
-        $entityManager->flush();
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
         $this->client->loginUser($user);
     }

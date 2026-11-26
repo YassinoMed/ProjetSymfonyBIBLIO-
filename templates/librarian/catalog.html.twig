@@ -1,0 +1,46 @@
+{% extends 'app/layout.html.twig' %}
+
+{% block title %}Gestion du catalogue — La Bibliothèque{% endblock %}
+
+{% block dashboard %}
+<section class="dashboard-welcome">
+    <div>
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Catalogue</p>
+        <h1>Gestion du catalogue</h1>
+        <p class="lede">Créer, modifier ou retirer des livres et gérer leurs exemplaires.</p>
+    </div>
+    <div class="dashboard-welcome__actions">
+        <a class="button button--primary" href="{{ path('app_librarian_book_new') }}">Ajouter un livre</a>
+    </div>
+</section>
+
+<section class="dashboard-panel">
+    <div class="member-table-wrap" role="table" aria-label="Livres du catalogue">
+        <div class="member-table__head" role="row">
+            <span role="columnheader">Titre</span>
+            <span role="columnheader">Année</span>
+            <span role="columnheader">Catégorie</span>
+            <span role="columnheader">Exemplaires</span>
+            <span role="columnheader">Actions</span>
+        </div>
+        {% for book in books %}
+            <div class="member-table__row" role="row">
+                <span role="cell"><strong>{{ book.title }}</strong> <small>{{ book.isbn }}</small></span>
+                <span role="cell">{{ book.publicationYear }}</span>
+                <span role="cell">{{ book.category ? book.category.name : '—' }}</span>
+                <span role="cell">{{ book.copies|length }}</span>
+                <span role="cell">
+                    <a class="button button--small" href="{{ path('app_librarian_book_edit', {id: book.id}) }}">Modifier</a>
+                    <form method="post" action="{{ path('app_librarian_book_delete', {id: book.id}) }}" style="display:inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_book_' ~ book.id) }}">
+                        <button class="button button--small button--ghost" type="submit">Supprimer</button>
+                    </form>
+                </span>
+            </div>
+        {% else %}
+            <p class="muted">Aucun livre enregistré dans le catalogue.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+

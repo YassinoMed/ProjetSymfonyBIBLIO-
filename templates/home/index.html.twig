@@ -1,41 +1,121 @@
 {% extends 'base.html.twig' %}
+{% import 'components/icon.html.twig' as ui %}
 
-{% block title %}Bibliothèque — Accueil{% endblock %}
+{% block title %}La Bibliothèque — Accueil{% endblock %}
+{% block description %}Explorez le catalogue, suivez vos emprunts et vos réservations, et posez vos questions à l’assistant de la bibliothèque.{% endblock %}
 
 {% block body %}
     <section class="hero">
-        <p class="eyebrow">Bibliothèque</p>
-        <h1>Bienvenue à la bibliothèque</h1>
-        <p class="lede">
-            Consultez le catalogue, suivez vos emprunts et vos réservations,
-            et accédez aux outils de gestion selon votre rôle.
-        </p>
+        <div class="hero__grain" aria-hidden="true"></div>
+        <div class="hero__orb hero__orb--one" aria-hidden="true"></div>
+        <div class="hero__orb hero__orb--two" aria-hidden="true"></div>
 
-        <div class="hero__actions">
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="button" href="{{ path('app_admin') }}">Ouvrir l’administration</a>
-            {% elseif is_granted('ROLE_LIBRARIAN') %}
-                <a class="button" href="{{ path('app_librarian') }}">Ouvrir l’espace bibliothécaire</a>
-            {% elseif is_granted('ROLE_MEMBER') %}
-                <a class="button" href="{{ path('app_member') }}">Ouvrir mon espace</a>
-            {% else %}
-                <a class="button" href="{{ path('app_login') }}">Se connecter</a>
-            {% endif %}
+        <div class="container hero__grid">
+            <div class="hero__content">
+                <p class="eyebrow hero__eyebrow"><span class="eyebrow__dot"></span> Bibliothèque</p>
+
+                {% if app.user %}
+                    <h1 class="hero__title">Bienvenue à la bibliothèque</h1>
+                    <p class="hero__lead">
+                        Retrouvez vos emprunts et vos réservations, parcourez le catalogue
+                        ou demandez conseil à l’assistant.
+                    </p>
+                {% else %}
+                    <h1 class="hero__title">
+                        <span class="hero__line">Chaque livre mérite</span>
+                        <span class="hero__line hero__line--accent"><strong>son lecteur.</strong></span>
+                    </h1>
+                    <p class="hero__lead">
+                        Un catalogue vivant, des emprunts suivis au jour le jour et des réservations
+                        dans l’ordre d’arrivée — avec un assistant qui répond à vos questions.
+                    </p>
+                {% endif %}
+
+                <form class="catalog-search" action="{{ path('app_catalog') }}" method="get" role="search">
+                    {{ ui.icon('search') }}
+                    <label class="sr-only" for="home-search">Rechercher un ouvrage</label>
+                    <input id="home-search" type="search" name="q" placeholder="Titre, auteur, sujet…" autocomplete="off">
+                    <button class="button button--primary" type="submit">Rechercher</button>
+                </form>
+
+                <p class="hero__suggestions">
+                    <span>Suggestions</span>
+                    <a href="{{ path('app_catalog') }}?category=Imaginaire">Imaginaire</a>
+                    <a href="{{ path('app_catalog') }}?category=Essais">Essais</a>
+                    <a href="{{ path('app_catalog') }}?status=available">Disponibles</a>
+                </p>
+            </div>
+
+            <div class="hero__visual" aria-hidden="true">
+                <div class="book-stack">
+                    {% for book in featured %}
+                        <span class="book-stack__book book-stack__book--{{ loop.index == 1 ? 'back' : (loop.index == 2 ? 'middle' : 'front') }}">
+                            <span>{{ book.title }}</span>
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="feature-grid" aria-label="Les services de la bibliothèque">
-        <article class="feature">
-            <h2>Catalogue</h2>
-            <p>Recherchez les œuvres, les auteurs et les exemplaires disponibles.</p>
-        </article>
-        <article class="feature">
-            <h2>Emprunts</h2>
-            <p>Suivez les échéances, les prolongations et les retours.</p>
-        </article>
-        <article class="feature">
-            <h2>Réservations</h2>
-            <p>Réservez un document et consultez sa disponibilité.</p>
-        </article>
+    <section class="section">
+        <div class="container manifesto__grid">
+            <div class="manifesto__statement">
+                <p class="eyebrow">Nos règles, en clair</p>
+                <h2>Une bibliothèque qui suit le rythme de ses lecteurs</h2>
+                <p>
+                    Les mêmes règles s’appliquent à l’interface et à l’assistant :
+                    durées, plafonds et pénalités sont lus dans la configuration, jamais improvisés.
+                </p>
+            </div>
+            <div class="manifesto__metrics">
+                <div>
+                    <strong>21 jours</strong>
+                    <small>durée d’un prêt</small>
+                </div>
+                <div>
+                    <strong>5 livres</strong>
+                    <small>empruntés en parallèle</small>
+                </div>
+                <div>
+                    <strong>5 jours</strong>
+                    <small>pour retirer une réservation</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--topless">
+        <div class="container">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">À découvrir</p>
+                    <h2>Quelques ouvrages du catalogue</h2>
+                </div>
+                <a class="text-link" href="{{ path('app_catalog') }}">Voir tout le catalogue {{ ui.icon('arrow-right') }}</a>
+            </div>
+
+            <div class="collection__grid">
+                {% for book in featured %}
+                    <article class="collection-card">
+                        <a class="collection-card__cover" href="{{ path('app_catalog') }}?q={{ book.title|url_encode }}" aria-label="Voir {{ book.title }} dans le catalogue">
+                            <span class="book-cover book-cover--{{ book.accent }}">
+                                <span class="book-cover__eyebrow">{{ book.category }}</span>
+                                <strong>{{ book.title }}</strong>
+                                <small>{{ book.author }} · {{ book.year }}</small>
+                                <i aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <div class="collection-card__meta">
+                            <h3>{{ book.title }}</h3>
+                            <p>{{ book.author }}</p>
+                            <span class="availability availability--{{ book.status }}">
+                                <i></i>{{ book.statusLabel }}
+                            </span>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
     </section>
 {% endblock %}

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Dto\CatalogFilter;
+use App\Service\CatalogService;
 use App\Service\DemoLibraryData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,24 +16,21 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class PageController extends AbstractController
 {
     #[Route('/', name: 'app_home', methods: ['GET'])]
-    public function home(): Response
+    public function home(CatalogService $catalogService): Response
     {
-        return $this->render('home/index.html.twig');
+        return $this->render('home/index.html.twig', [
+            'featured' => \array_slice($catalogService->searchForView(new CatalogFilter()), 0, 3),
+        ]);
     }
 
     #[Route('/catalogue', name: 'app_catalog', methods: ['GET'])]
     public function catalog(
-        DemoLibraryData $demoData,
+        CatalogService $catalogService,
         #[MapQueryString] CatalogFilter $filter = new CatalogFilter(),
     ): Response {
         return $this->render('catalog/index.html.twig', [
-            'books' => $demoData->filterBooks(
-                $filter->query(),
-                $filter->selectedCategory(),
-                $filter->selectedStatus(),
-                $filter->selectedSort(),
-            ),
-            'categories' => $demoData->categories(),
+            'books' => $catalogService->searchForView($filter),
+            'categories' => $catalogService->listCategories(),
             'query' => $filter->query(),
             'selectedCategory' => $filter->selectedCategory(),
             'selectedStatus' => $filter->selectedStatus(),
