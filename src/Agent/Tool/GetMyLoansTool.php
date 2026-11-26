@@ -52,7 +52,7 @@ final readonly class GetMyLoansTool implements AgentToolInterface
             $copy = $loan->getCopy();
             $loans[] = [
                 'loanId' => $loan->getId(),
-                'bookTitle' => $copy->getBook()?->getTitle(),
+                'bookTitle' => $copy->getBook()->getTitle(),
                 'barcode' => $copy->getBarcode(),
                 'startedAt' => $loan->getStartedAt()->format('Y-m-d'),
                 'dueAt' => $loan->getDueAt()->format('Y-m-d'),

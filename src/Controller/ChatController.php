@@ -62,7 +62,7 @@ final class ChatController extends AbstractController
         );
 
         try {
-            $answer = $this->agentService->reply($dto->message, $history);
+            $answer = $this->agentService->reply($dto->message, $history, $this->getUser());
         } catch (LlmUnavailableException|LlmUnauthorizedException|LlmInvalidResponseException $e) {
             $this->logger->warning('Agent LLM unavailable.', ['exception' => $e::class]);
 
