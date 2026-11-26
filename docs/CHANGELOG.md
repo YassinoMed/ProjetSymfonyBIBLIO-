@@ -19,6 +19,7 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) — versionnag
 - Registre et parseur d'outils d'agent (`E3.2`) : `AgentToolInterface`, `AgentToolRegistry`, `ParsedToolCall` et `ToolCallParser` (protocole JSON strict isolé).
 - Outils de lecture catalogue et règlement (`E3.3`) : `SearchBooksTool`, `GetBookTool`, `GetPolicyTool` (alimenté par `app.policy` dans `config/services.yaml`), `BookCatalogFormatter` et `BookRepository::searchCatalog`.
 - Socle métier Phase 2 + Phase 3 : entités `Member`, `Loan`, `Penalty`, `Reservation` (et migration Doctrine), services `LoanService` et `ReservationService`, voters `LoanVoter` et `ReservationVoter`, tests unitaires associés.
+- Outils personnels protégés par voters (`E3.4`) : `GetMyLoansTool`, `GetMyReservationsTool` et `ConnectedMemberResolver` (refus de tout identifiant utilisateur en paramètre).
 
 ### Sécurité
 - La clé Gemini n'est jamais écrite dans `.env`, les logs ou le navigateur ; elle transite par l'en-tête `x-goog-api-key`.

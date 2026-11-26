@@ -28,6 +28,9 @@ final class CatalogToolsTest extends KernelTestCase
         $this->entityManager = self::getContainer()->get(EntityManagerInterface::class);
         $this->registry = self::getContainer()->get(AgentToolRegistry::class);
 
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Penalty p')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Loan l')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Reservation r')->execute();
         $this->entityManager->createQuery('DELETE FROM App\Entity\Copy c')->execute();
         $this->entityManager->createQuery('DELETE FROM App\Entity\Book b')->execute();
         $this->entityManager->createQuery('DELETE FROM App\Entity\Author a')->execute();

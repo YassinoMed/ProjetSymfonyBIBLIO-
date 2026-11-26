@@ -25,7 +25,7 @@
 - [x] E3.1 Entité `AuditLog` (acteur, outil, paramètres, résultat résumé, origine UI/agent, date) + `AuditLogger` + migration.
 - [x] E3.2 `AgentToolInterface` + `AgentToolRegistry` : définition de chaque outil (nom, description, schéma de paramètres), exécution avec l'utilisateur courant. Protocole d'appel d'outil en JSON strict dans le texte du modèle (le serveur actuel n'a pas de function-calling natif), isolé dans une classe `ToolCallParser` pour migrer plus tard.
 - [x] E3.3 Outils `search_books`, `get_book`, `get_policy` (règles lues depuis la configuration, jamais codées dans le prompt).
-- [ ] E3.4 Outils `get_my_loans`, `get_my_reservations` + voters : seul le propriétaire (ou bibliothécaire/admin) y accède ; aucun identifiant d'utilisateur n'est accepté en paramètre pour un membre.
+- [x] E3.4 Outils `get_my_loans`, `get_my_reservations` + voters : seul le propriétaire (ou bibliothécaire/admin) y accède ; aucun identifiant d'utilisateur n'est accepté en paramètre pour un membre.
 - [ ] E3.5 Boucle d'outils dans `AgentService` : 3 tours maximum, erreurs d'outil renvoyées au modèle sans détail interne, résultats d'outils traités comme données, chaque appel écrit dans `AuditLog`.
 - [ ] E3.6 Tests d'autorisation : un membre ne voit pas les emprunts d'un autre, anonyme refusé, identifiant inventé, injection de prompt dans un résumé de livre sans effet, outil inexistant ignoré.
 - [ ] E3.7 Mise à jour de docs/06-agent-ia.md (tableau des outils), docs/09-securite.md et docs/08-validation.md.
