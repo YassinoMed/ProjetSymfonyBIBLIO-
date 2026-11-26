@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\BookRepository;
@@ -16,7 +18,7 @@ class Book
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    private string $title = '';
 
     #[ORM\Column(length: 13, nullable: true)]
     private ?string $isbn = null;
@@ -25,22 +27,35 @@ class Book
     private ?string $summary = null;
 
     #[ORM\Column]
-    private ?int $publicationYear = null;
+    private int $publicationYear = 0;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Category $category = null;
 
+    /**
+     * @var Collection<int, Copy>
+     */
     #[ORM\OneToMany(mappedBy: 'book', cascade: ['persist'], targetEntity: Copy::class)]
-    private $copies;
+    private Collection $copies;
 
+    /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\OneToMany(mappedBy: 'book', cascade: ['persist'], targetEntity: Reservation::class)]
+    private Collection $reservations;
+
+    /**
+     * @var Collection<int, Author>
+     */
     #[ORM\ManyToMany(targetEntity: Author::class)]
-    private $authors;
+    private Collection $authors;
 
     public function __construct()
     {
         $this->copies = new ArrayCollection();
         $this->authors = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,7 +124,7 @@ class Book
     }
 
     /**
-     * @return Collection<int<Author>>
+     * @return Collection<int, Author>
      */
     public function getAuthors(): Collection
     {
@@ -137,7 +152,7 @@ class Book
     }
 
     /**
-     * @return Collection<int<Copy>>
+     * @return Collection<int, Copy>
      */
     public function getCopies(): Collection
     {
@@ -160,6 +175,31 @@ class Book
             $this->copies->removeElement($copy);
             $copy->setBook(null);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        $this->reservations->removeElement($reservation);
 
         return $this;
     }

@@ -34,6 +34,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password;
 
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Member::class)]
+    private ?Member $member = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +88,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Member $member): static
+    {
+        if (null === $member && null !== $this->member) {
+            $this->member->setUser(null);
+        }
+
+        if (null !== $member && $member->getUser() !== $this) {
+            $member->setUser($this);
+        }
+
+        $this->member = $member;
 
         return $this;
     }

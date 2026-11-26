@@ -7,14 +7,14 @@
 - [ ] La recherche par titre, auteur ou catégorie renvoie les bons résultats avec la disponibilité.
 
 ### Emprunts
-- [ ] Un membre ne peut pas dépasser 5 livres empruntés.
-- [ ] Un membre bloqué (pénalités ≥ 10 € ou retard > 30 j) ne peut pas emprunter.
-- [ ] Une prolongation est refusée si le livre est réservé ou déjà prolongé une fois.
-- [ ] La pénalité de retard est calculée correctement et plafonnée.
+- [x] Un membre ne peut pas dépasser 5 livres empruntés.
+- [x] Un membre bloqué (pénalités ≥ 10 € ou retard > 30 j) ne peut pas emprunter.
+- [x] Une prolongation est refusée si le livre est réservé ou déjà prolongé une fois.
+- [x] La pénalité de retard est calculée correctement et plafonnée.
 
 ### Réservations
-- [ ] La file d'attente respecte l'ordre d'arrivée.
-- [ ] Une réservation non retirée sous 5 jours expire.
+- [x] La file d'attente respecte l'ordre d'arrivée.
+- [x] Une réservation non retirée sous 5 jours expire.
 
 ### Agent IA
 - [ ] Un membre ne peut pas voir les emprunts d'un autre membre via l'agent.
