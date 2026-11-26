@@ -12,7 +12,7 @@
 | `Loan` | date_début, échéance, date_retour, prolongations | N—1 `Member`, N—1 `Copy` |
 | `Reservation` | date, statut, position | N—1 `Member`, N—1 `Book` |
 | `Penalty` | montant, statut (due/payée) | N—1 `Loan` |
-| `AuditLog` | acteur, action, cible, date, origine (UI/agent) | — |
+| `AuditLog` | acteur, outil, paramètres (JSON), résultat résumé, origine (`UI`/`agent`), date | — |
 | `ChatConversation` / `ChatMessage` | utilisateur, contenu, date | 1—N |
 
 ## Couches

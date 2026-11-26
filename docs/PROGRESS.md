@@ -22,7 +22,7 @@
 - [x] E1.5 Journal technique des appels (durée, tokens si fournis, statut), sans contenu des messages ni clé ; mise à jour de docs/05-developpement.md et docs/06-agent-ia.md.
 
 ## Étape 3 — Outils de lecture, voters et audit
-- [ ] E3.1 Entité `AuditLog` (acteur, outil, paramètres, résultat résumé, origine UI/agent, date) + `AuditLogger` + migration.
+- [x] E3.1 Entité `AuditLog` (acteur, outil, paramètres, résultat résumé, origine UI/agent, date) + `AuditLogger` + migration.
 - [ ] E3.2 `AgentToolInterface` + `AgentToolRegistry` : définition de chaque outil (nom, description, schéma de paramètres), exécution avec l'utilisateur courant. Protocole d'appel d'outil en JSON strict dans le texte du modèle (le serveur actuel n'a pas de function-calling natif), isolé dans une classe `ToolCallParser` pour migrer plus tard.
 - [ ] E3.3 Outils `search_books`, `get_book`, `get_policy` (règles lues depuis la configuration, jamais codées dans le prompt).
 - [ ] E3.4 Outils `get_my_loans`, `get_my_reservations` + voters : seul le propriétaire (ou bibliothécaire/admin) y accède ; aucun identifiant d'utilisateur n'est accepté en paramètre pour un membre.

@@ -10,3 +10,8 @@ services:
     App\Agent\LlmClientInterface:
         alias: App\Agent\OpenAiCompatibleLlmClient
         public: true
+
+    App\Service\AuditLogger:
+        public: true
+        autowire: true
+        autoconfigure: true
