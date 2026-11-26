@@ -35,6 +35,7 @@ En parallèle du client Gemini existant, le socle de l'agent repose sur un clien
 | Modèle | `AGENT_MODEL` |
 | Résilience | Timeout `120` s, `1` nouvelle tentative sur erreur réseau ou `5xx` |
 | Exceptions typées | `LlmUnavailableException`, `LlmUnauthorizedException`, `LlmInvalidResponseException` |
+| Journal technique | `duration_ms`, `http_status`, `status`, `attempt`, compteurs `usage` (`prompt_tokens`, `completion_tokens`, `total_tokens`) si fournis — sans contenu ni clé API |
 
 ## AgentService et endpoint `/chat` (E1.2)
 

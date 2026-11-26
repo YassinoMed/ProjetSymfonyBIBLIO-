@@ -9,6 +9,7 @@ use App\Exception\LlmInvalidResponseException;
 use App\Exception\LlmUnauthorizedException;
 use App\Exception\LlmUnavailableException;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\AbstractLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\JsonMockResponse;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -175,6 +176,107 @@ final class OpenAiCompatibleLlmClientTest extends TestCase
         $this->expectException(LlmUnavailableException::class);
 
         $client->complete([['role' => 'user', 'content' => 'Hello']]);
+    }
+
+    public function testItLogsDurationStatusAndUsageTokensWithoutMessageContentOrApiKey(): void
+    {
+        $logger = new class () extends AbstractLogger {
+            /** @var list<array{level: mixed, message: string, context: array<string, mixed>}> */
+            public array $records = [];
+
+            public function log($level, string|\Stringable $message, array $context = []): void
+            {
+                $this->records[] = [
+                    'level' => $level,
+                    'message' => (string) $message,
+                    'context' => $context,
+                ];
+            }
+        };
+
+        $httpClient = new MockHttpClient(new JsonMockResponse([
+            'choices' => [
+                ['message' => ['role' => 'assistant', 'content' => 'Secret model answer']],
+            ],
+            'usage' => [
+                'prompt_tokens' => 12,
+                'completion_tokens' => 7,
+                'total_tokens' => 19,
+            ],
+        ]));
+
+        $client = new OpenAiCompatibleLlmClient(
+            $httpClient,
+            'https://llm.example.test',
+            'test-key',
+            'test-model',
+            $logger,
+        );
+
+        $client->complete([['role' => 'user', 'content' => 'Secret user prompt']]);
+
+        self::assertCount(1, $logger->records);
+        $record = $logger->records[0];
+        self::assertSame('info', $record['level']);
+        self::assertSame('success', $record['context']['status']);
+        self::assertSame(200, $record['context']['http_status']);
+        self::assertIsInt($record['context']['duration_ms']);
+        self::assertGreaterThanOrEqual(0, $record['context']['duration_ms']);
+        self::assertSame(12, $record['context']['prompt_tokens']);
+        self::assertSame(7, $record['context']['completion_tokens']);
+        self::assertSame(19, $record['context']['total_tokens']);
+
+        $serialized = json_encode($logger->records, JSON_THROW_ON_ERROR);
+        self::assertStringNotContainsString('Secret user prompt', $serialized);
+        self::assertStringNotContainsString('Secret model answer', $serialized);
+        self::assertStringNotContainsString('test-key', $serialized);
+    }
+
+    public function testItLogsErrorStatusAndDurationOnFailureWithoutLeakingSecrets(): void
+    {
+        $logger = new class () extends AbstractLogger {
+            /** @var list<array{level: mixed, message: string, context: array<string, mixed>}> */
+            public array $records = [];
+
+            public function log($level, string|\Stringable $message, array $context = []): void
+            {
+                $this->records[] = [
+                    'level' => $level,
+                    'message' => (string) $message,
+                    'context' => $context,
+                ];
+            }
+        };
+
+        $httpClient = new MockHttpClient(new JsonMockResponse(
+            ['error' => ['message' => 'Invalid API key']],
+            ['http_code' => 401],
+        ));
+
+        $client = new OpenAiCompatibleLlmClient(
+            $httpClient,
+            'https://llm.example.test',
+            'test-key',
+            'test-model',
+            $logger,
+        );
+
+        try {
+            $client->complete([['role' => 'user', 'content' => 'Secret user prompt']]);
+            self::fail('LlmUnauthorizedException was expected.');
+        } catch (LlmUnauthorizedException) {
+        }
+
+        self::assertCount(1, $logger->records);
+        $record = $logger->records[0];
+        self::assertSame('warning', $record['level']);
+        self::assertSame('error', $record['context']['status']);
+        self::assertSame(401, $record['context']['http_status']);
+        self::assertIsInt($record['context']['duration_ms']);
+
+        $serialized = json_encode($logger->records, JSON_THROW_ON_ERROR);
+        self::assertStringNotContainsString('Secret user prompt', $serialized);
+        self::assertStringNotContainsString('test-key', $serialized);
     }
 
     private function createClient(MockHttpClient $httpClient): OpenAiCompatibleLlmClient

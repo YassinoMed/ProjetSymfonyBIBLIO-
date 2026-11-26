@@ -19,7 +19,7 @@
 - [x] E1.2 `AgentService` sans outils : prompt système dans un fichier dédié (src/Agent/Prompt), historique tronqué aux N derniers messages (paramètre), `ChatController` minimal (POST /chat, utilisateur authentifié, protection CSRF, échappement de la réponse).
 - [x] E1.3 Mode dégradé : si le LLM est indisponible, message clair à l'utilisateur et reste de l'application inchangé ; limitation de débit par utilisateur (rate limiter Symfony).
 - [x] E1.4 Tests avec MockHttpClient : succès, 401, timeout, JSON invalide, réponse vide.
-- [ ] E1.5 Journal technique des appels (durée, tokens si fournis, statut), sans contenu des messages ni clé ; mise à jour de docs/05-developpement.md et docs/06-agent-ia.md.
+- [x] E1.5 Journal technique des appels (durée, tokens si fournis, statut), sans contenu des messages ni clé ; mise à jour de docs/05-developpement.md et docs/06-agent-ia.md.
 
 ## Étape 3 — Outils de lecture, voters et audit
 - [ ] E3.1 Entité `AuditLog` (acteur, outil, paramètres, résultat résumé, origine UI/agent, date) + `AuditLogger` + migration.
