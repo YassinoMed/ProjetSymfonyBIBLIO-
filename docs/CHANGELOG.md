@@ -11,6 +11,7 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) — versionnag
 - Coffre Symfony Secrets pour `GEMINI_API_KEY` ; clés privées du coffre ignorées par Git.
 - Dépendances `symfony/http-client`, `symfony/rate-limiter`, `symfony/serializer`.
 - Client LLM compatible OpenAI (`E1.1`) : `App\Agent\LlmClientInterface`, `App\Agent\OpenAiCompatibleLlmClient` (timeout 120 s, 1 nouvelle tentative), exceptions `LlmUnavailableException`, `LlmUnauthorizedException`, `LlmInvalidResponseException`, variables `AGENT_BASE_URL`, `AGENT_API_KEY`, `AGENT_MODEL` dans `.env.example` / `.env` / `.env.test`, tests unitaires avec `MockHttpClient`.
+- Socle `AgentService` et `POST /chat` (`E1.2`) : prompt système dédié (`src/Agent/Prompt/system_prompt.txt` + `SystemPromptProvider`), troncature de l'historique aux `N` derniers messages (`app.agent.max_history_messages`), `ChatController` (`ROLE_MEMBER`, protection CSRF, validation `ChatRequestDto`, échappement HTML de la réponse), tests unitaires et fonctionnels.
 
 ### Sécurité
 - La clé Gemini n'est jamais écrite dans `.env`, les logs ou le navigateur ; elle transite par l'en-tête `x-goog-api-key`.

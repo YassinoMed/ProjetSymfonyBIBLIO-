@@ -36,6 +36,16 @@ En parallèle du client Gemini existant, le socle de l'agent repose sur un clien
 | Résilience | Timeout `120` s, `1` nouvelle tentative sur erreur réseau ou `5xx` |
 | Exceptions typées | `LlmUnavailableException`, `LlmUnauthorizedException`, `LlmInvalidResponseException` |
 
+## AgentService et endpoint `/chat` (E1.2)
+
+| Élément | Valeur |
+|---|---|
+| Service | `App\Agent\AgentService` (sans outils pour l'instant) |
+| Prompt système | `src/Agent/Prompt/system_prompt.txt` chargé par `App\Agent\Prompt\SystemPromptProvider` |
+| Historique | Tronqué aux `app.agent.max_history_messages` (`10`) derniers messages (`user`/`assistant` uniquement) |
+| Endpoint | `POST /chat` (`App\Controller\ChatController`, `ROLE_MEMBER`) |
+| Sécurité | Jeton CSRF `chat` (`X-CSRF-Token`), validation `ChatRequestDto`, réponse échappée (`htmlspecialchars`) |
+
 ## Prompt système (modèle)
 ```
 Tu es l'assistant de la bibliothèque. Tu réponds en français, de façon concise et polie.

@@ -16,7 +16,7 @@
 
 ## Étape 1 — Client LLM et AgentService de base
 - [x] E1.1 `LlmClientInterface` + `OpenAiCompatibleLlmClient` (HttpClient Symfony, POST {AGENT_BASE_URL}/v1/chat/completions, en-tête Bearer AGENT_API_KEY, modèle AGENT_MODEL, timeout 120 s, 1 nouvel essai, exceptions typées : LlmUnavailableException, LlmUnauthorizedException, LlmInvalidResponseException). Variables dans .env.example sans valeur réelle.
-- [ ] E1.2 `AgentService` sans outils : prompt système dans un fichier dédié (src/Agent/Prompt), historique tronqué aux N derniers messages (paramètre), `ChatController` minimal (POST /chat, utilisateur authentifié, protection CSRF, échappement de la réponse).
+- [x] E1.2 `AgentService` sans outils : prompt système dans un fichier dédié (src/Agent/Prompt), historique tronqué aux N derniers messages (paramètre), `ChatController` minimal (POST /chat, utilisateur authentifié, protection CSRF, échappement de la réponse).
 - [ ] E1.3 Mode dégradé : si le LLM est indisponible, message clair à l'utilisateur et reste de l'application inchangé ; limitation de débit par utilisateur (rate limiter Symfony).
 - [ ] E1.4 Tests avec MockHttpClient : succès, 401, timeout, JSON invalide, réponse vide.
 - [ ] E1.5 Journal technique des appels (durée, tokens si fournis, statut), sans contenu des messages ni clé ; mise à jour de docs/05-developpement.md et docs/06-agent-ia.md.
