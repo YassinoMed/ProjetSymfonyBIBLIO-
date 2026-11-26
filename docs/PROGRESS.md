@@ -27,8 +27,8 @@
 - [x] E3.3 Outils `search_books`, `get_book`, `get_policy` (règles lues depuis la configuration, jamais codées dans le prompt).
 - [x] E3.4 Outils `get_my_loans`, `get_my_reservations` + voters : seul le propriétaire (ou bibliothécaire/admin) y accède ; aucun identifiant d'utilisateur n'est accepté en paramètre pour un membre.
 - [x] E3.5 Boucle d'outils dans `AgentService` : 3 tours maximum, erreurs d'outil renvoyées au modèle sans détail interne, résultats d'outils traités comme données, chaque appel écrit dans `AuditLog`.
-- [ ] E3.6 Tests d'autorisation : un membre ne voit pas les emprunts d'un autre, anonyme refusé, identifiant inventé, injection de prompt dans un résumé de livre sans effet, outil inexistant ignoré.
-- [ ] E3.7 Mise à jour de docs/06-agent-ia.md (tableau des outils), docs/09-securite.md et docs/08-validation.md.
+- [x] E3.6 Tests d'autorisation : un membre ne voit pas les emprunts d'un autre, anonyme refusé, identifiant inventé, injection de prompt dans un résumé de livre sans effet, outil inexistant ignoré.
+- [x] E3.7 Mise à jour de docs/06-agent-ia.md (tableau des outils), docs/09-securite.md et docs/08-validation.md.
 
 ## Étape 5 — Recherche hybride
 ### 5a — Plein texte

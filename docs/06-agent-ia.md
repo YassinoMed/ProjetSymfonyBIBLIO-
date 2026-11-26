@@ -53,10 +53,16 @@ En parallèle du client Gemini existant, le socle de l'agent repose sur un clien
 - **Registre** : chaque outil implémente `App\Agent\Tool\AgentToolInterface` (tagué `app.agent_tool`) et s'enregistre dans `App\Agent\Tool\AgentToolRegistry`, qui expose les définitions et exécute l'outil avec l'utilisateur authentifié (`UserInterface`).
 - **Protocole sans function-calling natif** : le modèle demande un outil en renvoyant uniquement un objet JSON strict `{"tool": "<nom>", "arguments": {...}}` (éventuellement dans un bloc ```` ```json ````). L'analyse est isolée dans `App\Agent\Tool\ToolCallParser` pour faciliter une migration ultérieure vers le function-calling natif.
 
-### Outils implémentés (E3.3)
-- `search_books` (`App\Agent\Tool\SearchBooksTool`) : recherche dans `BookRepository::searchCatalog` avec paramètres liés (mot-clé, auteur, catégorie, disponibilité).
-- `get_book` (`App\Agent\Tool\GetBookTool`) : détail d'un livre et liste de ses exemplaires (retourne `found: false` pour un identifiant absent).
-- `get_policy` (`App\Agent\Tool\GetPolicyTool`) : lit les règles métier depuis le paramètre `app.policy` dans `config/services.yaml` (jamais codées en dur dans le prompt).
+### Outils implémentés (E3.3 → E3.5)
+| Outil | Classe | Entrée | Droits / Isolation | Statut |
+|---|---|---|---|---|
+| `search_books` | `SearchBooksTool` | `query`, `author`, `category`, `availableOnly`, `limit` | Public / tous | Implémenté |
+| `get_book` | `GetBookTool` | `bookId` (entier positif) | Public / tous | Implémenté |
+| `get_policy` | `GetPolicyTool` | — (paramètres `app.policy`) | Public / tous | Implémenté |
+| `get_my_loans` | `GetMyLoansTool` | — (aucun ID utilisateur accepté) | Membre (`LoanVoter::VIEW`) | Implémenté |
+| `get_my_reservations` | `GetMyReservationsTool` | — (aucun ID utilisateur accepté) | Membre (`ReservationVoter::VIEW`) | Implémenté |
+
+La boucle d'outils dans `AgentService` exécute au maximum `3` tours, encapsule chaque résultat dans `TOOL_DATA` (données non fiables), masque les erreurs techniques internes et consigne chaque appel (y compris les outils inexistants ou refusés) dans `AuditLog`.
 
 ## Prompt système (modèle)
 ```

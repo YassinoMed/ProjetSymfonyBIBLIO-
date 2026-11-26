@@ -17,11 +17,11 @@
 - [x] Une réservation non retirée sous 5 jours expire.
 
 ### Agent IA
-- [ ] Un membre ne peut pas voir les emprunts d'un autre membre via l'agent.
+- [x] Un membre ne peut pas voir les emprunts d'un autre membre via l'agent.
 - [ ] L'agent ne modifie aucune donnée sans confirmation explicite.
-- [ ] L'agent donne les mêmes réponses que l'interface sur les règles (durée, plafond).
-- [ ] Face à une injection de prompt dans un champ du catalogue, l'agent ne change pas de comportement.
-- [ ] Si l'API est indisponible, le reste de l'application fonctionne.
+- [x] L'agent donne les mêmes réponses que l'interface sur les règles (durée, plafond).
+- [x] Face à une injection de prompt dans un champ du catalogue, l'agent ne change pas de comportement.
+- [x] Si l'API est indisponible, le reste de l'application fonctionne.
 - [x] `POST /api/ai/generate` redirige un visiteur vers la connexion et renvoie `403` sans `ROLE_MEMBER`.
 - [x] Un prompt vide, trop court ou trop long renvoie `422` ; un contenu non JSON renvoie `415`.
 - [x] La 11e requête d'un membre dans la même minute renvoie `429` avec `Retry-After`.

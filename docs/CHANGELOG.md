@@ -21,6 +21,7 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) — versionnag
 - Socle métier Phase 2 + Phase 3 : entités `Member`, `Loan`, `Penalty`, `Reservation` (et migration Doctrine), services `LoanService` et `ReservationService`, voters `LoanVoter` et `ReservationVoter`, tests unitaires associés.
 - Outils personnels protégés par voters (`E3.4`) : `GetMyLoansTool`, `GetMyReservationsTool` et `ConnectedMemberResolver` (refus de tout identifiant utilisateur en paramètre).
 - Boucle d'outils dans `AgentService` (`E3.5`) : 3 tours maximum, masquage des erreurs techniques internes, résultats traités comme données (`TOOL_DATA`), journalisation de chaque appel dans `AuditLog`.
+- Tests d'autorisation et de sécurité de l'agent (`E3.6`) et documentation sécurité/validation (`E3.7`) : `AgentSecurityTest` (`anonyme`, `userId` forgé, ID inventé, injection dans un résumé de livre, outil inexistant) et mise à jour de `docs/06-agent-ia.md`, `docs/09-securite.md`, `docs/08-validation.md`.
 
 ### Sécurité
 - La clé Gemini n'est jamais écrite dans `.env`, les logs ou le navigateur ; elle transite par l'en-tête `x-goog-api-key`.

@@ -12,12 +12,12 @@
 | Gérer comptes, rôles, paramètres | — | — | — | ✔ |
 | Consulter le journal d'audit | — | — | — | ✔ |
 
-Implémentation : Symfony Security + voters. Les droits sont vérifiés côté serveur, y compris pour les appels de l'agent.
+Implémentation : Symfony Security + voters (`LoanVoter`, `ReservationVoter`). Les droits sont vérifiés côté serveur, y compris pour les appels de l'agent (`GetMyLoansTool`, `GetMyReservationsTool` refusent tout paramètre `userId`/`memberId`).
 
 ## Protection des données
 - Mots de passe hachés (algorithme `auto` de Symfony), HTTPS obligatoire, cookies `Secure` et `HttpOnly`.
 - Protection CSRF sur tous les formulaires, validation stricte des entrées.
-- L'endpoint IA exige le jeton `ai_generate` dans l'en-tête `X-CSRF-Token` ; sans jeton valide, il répond `403` avant de consommer le quota.
+- L'endpoint IA exige le jeton `ai_generate` dans l'en-tête `X-CSRF-Token` ; l'endpoint `/chat` exige le jeton `chat` dans `X-CSRF-Token` et `ROLE_MEMBER`. Sans jeton valide, ils répondent `403` avant de consommer le quota.
 - Minimisation : seules les données nécessaires sont envoyées à l'API Gemini (pas d'email ni d'adresse).
 - Conformité RGPD : finalité, durée de conservation de l'historique de chat, droit d'accès et d'effacement.
 
