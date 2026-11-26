@@ -1,0 +1,13 @@
+framework:
+    rate_limiter:
+        # Protège le quota de l'API Gemini : 10 générations par minute et par membre.
+        gemini_api:
+            policy: 'sliding_window'
+            limit: 10
+            interval: '1 minute'
+
+        # Protège le endpoint /chat : 10 messages par minute et par utilisateur.
+        agent_chat:
+            policy: 'sliding_window'
+            limit: 10
+            interval: '1 minute'

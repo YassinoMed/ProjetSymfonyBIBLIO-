@@ -7,8 +7,12 @@ namespace App\Tests\Functional\Chat;
 use App\Agent\LlmClientInterface;
 use App\DataFixtures\AppFixtures;
 use App\Entity\User;
+use App\Exception\LlmInvalidResponseException;
+use App\Exception\LlmUnauthorizedException;
+use App\Exception\LlmUnavailableException;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -125,6 +129,71 @@ final class ChatControllerTest extends WebTestCase
             '{"status":"success","response":"Réponse &lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt; &amp; infos"}',
             (string) $this->client->getResponse()->getContent(),
         );
+    }
+
+    #[DataProvider('provideLlmFailures')]
+    public function testDegradedModeReturnsClearMessageAndKeepsAppUsable(\Throwable $exception): void
+    {
+        $this->llmClient
+            ->expects(self::once())
+            ->method('complete')
+            ->willThrowException($exception);
+
+        $this->client->loginUser($this->createUser($this->uniqueEmail(), ['ROLE_MEMBER']));
+
+        $this->client->jsonRequest('POST', '/chat', ['message' => 'Bonjour'], [
+            'HTTP_ORIGIN' => 'http://localhost',
+            'HTTP_X_CSRF_TOKEN' => $this->csrfToken(),
+        ]);
+
+        self::assertResponseStatusCodeSame(Response::HTTP_SERVICE_UNAVAILABLE);
+        $content = (string) $this->client->getResponse()->getContent();
+        self::assertStringNotContainsString('secret internal detail', $content);
+        self::assertJsonStringEqualsJsonString(
+            '{"error":"L’assistant IA est momentanément indisponible. Vous pouvez continuer à utiliser la bibliothèque normalement."}',
+            $content,
+        );
+
+        $this->client->request('GET', '/');
+        self::assertResponseIsSuccessful();
+    }
+
+    /**
+     * @return iterable<string, array{\Throwable}>
+     */
+    public static function provideLlmFailures(): iterable
+    {
+        yield 'unavailable' => [new LlmUnavailableException('secret internal detail')];
+        yield 'unauthorized' => [new LlmUnauthorizedException('secret internal detail')];
+        yield 'invalid response' => [new LlmInvalidResponseException('secret internal detail')];
+        yield 'unexpected error' => [new \RuntimeException('secret internal detail')];
+    }
+
+    public function testRateLimitIsEnforcedPerUser(): void
+    {
+        $this->llmClient->method('complete')->willReturn('Réponse');
+
+        $firstUser = $this->createUser($this->uniqueEmail(), ['ROLE_MEMBER']);
+        $this->client->loginUser($firstUser);
+
+        $server = [
+            'HTTP_ORIGIN' => 'http://localhost',
+            'HTTP_X_CSRF_TOKEN' => $this->csrfToken(),
+        ];
+
+        for ($i = 0; $i < 10; ++$i) {
+            $this->client->jsonRequest('POST', '/chat', ['message' => 'Bonjour'], $server);
+            self::assertResponseIsSuccessful();
+        }
+
+        $this->client->jsonRequest('POST', '/chat', ['message' => 'Bonjour'], $server);
+        self::assertResponseStatusCodeSame(Response::HTTP_TOO_MANY_REQUESTS);
+        self::assertTrue($this->client->getResponse()->headers->has('Retry-After'));
+
+        $secondUser = $this->createUser($this->uniqueEmail(), ['ROLE_MEMBER']);
+        $this->client->loginUser($secondUser);
+        $this->client->jsonRequest('POST', '/chat', ['message' => 'Bonjour'], $server);
+        self::assertResponseIsSuccessful();
     }
 
     /**

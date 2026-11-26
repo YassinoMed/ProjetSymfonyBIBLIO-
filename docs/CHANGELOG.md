@@ -12,6 +12,7 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) — versionnag
 - Dépendances `symfony/http-client`, `symfony/rate-limiter`, `symfony/serializer`.
 - Client LLM compatible OpenAI (`E1.1`) : `App\Agent\LlmClientInterface`, `App\Agent\OpenAiCompatibleLlmClient` (timeout 120 s, 1 nouvelle tentative), exceptions `LlmUnavailableException`, `LlmUnauthorizedException`, `LlmInvalidResponseException`, variables `AGENT_BASE_URL`, `AGENT_API_KEY`, `AGENT_MODEL` dans `.env.example` / `.env` / `.env.test`, tests unitaires avec `MockHttpClient`.
 - Socle `AgentService` et `POST /chat` (`E1.2`) : prompt système dédié (`src/Agent/Prompt/system_prompt.txt` + `SystemPromptProvider`), troncature de l'historique aux `N` derniers messages (`app.agent.max_history_messages`), `ChatController` (`ROLE_MEMBER`, protection CSRF, validation `ChatRequestDto`, échappement HTML de la réponse), tests unitaires et fonctionnels.
+- Mode dégradé et limitation de débit sur `/chat` (`E1.3`) : limiteur `agent_chat` (`10` requêtes/minute par utilisateur, `429` + `Retry-After`) et réponse `503` claire en cas d'indisponibilité du LLM sans fuite d'erreur interne.
 
 ### Sécurité
 - La clé Gemini n'est jamais écrite dans `.env`, les logs ou le navigateur ; elle transite par l'en-tête `x-goog-api-key`.
