@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -16,10 +18,13 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name;
 
+    /**
+     * @var Collection<int, Book>
+     */
     #[ORM\OneToMany(mappedBy: 'category', cascade: ['persist'], targetEntity: Book::class)]
-    private $books;
+    private Collection $books;
 
     public function __construct()
     {
@@ -31,7 +36,7 @@ class Category
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -44,7 +49,7 @@ class Category
     }
 
     /**
-     * @return Collection<int<Book>>
+     * @return Collection<int, Book>
      */
     public function getBooks(): Collection
     {

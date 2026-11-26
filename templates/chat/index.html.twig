@@ -1,0 +1,58 @@
+{% extends 'app/layout.html.twig' %}
+{% import 'components/icon.html.twig' as ui %}
+
+{% block title %}Assistant IA — La Bibliothèque{% endblock %}
+
+{% block dashboard %}
+<section class="dashboard-welcome" data-reveal>
+    <div>
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Assistant de la bibliothèque</p>
+        <h1>Conversation avec l’assistant</h1>
+        <p class="lede">Interrogez le catalogue, vos emprunts, vos réservations et le règlement en vigueur.</p>
+    </div>
+    <div class="dashboard-welcome__actions">
+        <button class="button button--ghost" type="button" data-chat-reset>Effacer l’historique</button>
+        <a class="button" href="{{ path('app_catalog') }}">{{ ui.icon('search') }} Catalogue</a>
+    </div>
+</section>
+
+<section class="dashboard-panel dashboard-panel--wide">
+    <div class="assistant-panel__prompts">
+        <button type="button" data-chat-prompt="Quels sont les livres disponibles ?">Livres disponibles</button>
+        <button type="button" data-chat-prompt="Quels sont mes emprunts en cours ?">Mes emprunts</button>
+        <button type="button" data-chat-prompt="Quelles sont les règles d'emprunt ?">Règles de prêt</button>
+    </div>
+
+    <div
+        class="chat-panel"
+        data-chat
+        data-chat-mode="agent"
+        data-chat-endpoint="{{ path('app_chat') }}"
+        data-chat-history-endpoint="{{ path('app_chat_history') }}"
+        data-chat-reset-endpoint="{{ path('app_chat_reset') }}"
+        data-chat-token="{{ csrf_token('chat') }}"
+    >
+        <div class="chat-panel__messages" data-chat-messages aria-live="polite" aria-atomic="false">
+            {% if history is empty %}
+                <div class="chat-message chat-message--assistant">
+                    <span class="chat-message__avatar" aria-hidden="true">{{ ui.icon('sparkles') }}</span>
+                    <p>Bonjour. Posez-moi une question sur le catalogue, vos emprunts ou le règlement de la bibliothèque.</p>
+                </div>
+            {% else %}
+                {% for item in history %}
+                    <div class="chat-message chat-message--{{ item.role }}">
+                        <span class="chat-message__avatar" aria-hidden="true">{{ item.role == 'user' ? 'MO' : ui.icon('sparkles') }}</span>
+                        <p>{{ item.content }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <form class="chat-panel__composer" data-chat-form action="{{ path('app_chat_ui') }}" method="get">
+            <label class="sr-only" for="agent-chat-input">Votre question</label>
+            <textarea id="agent-chat-input" name="message" rows="1" maxlength="2000" placeholder="Écrivez votre question…" data-chat-input></textarea>
+            <button type="submit" aria-label="Envoyer le message">{{ ui.icon('arrow-right') }}</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

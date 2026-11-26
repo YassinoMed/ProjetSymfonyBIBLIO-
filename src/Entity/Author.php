@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\AuthorRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 class Author
@@ -16,13 +18,16 @@ class Author
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstname = null;
 
+    /**
+     * @var Collection<int, Book>
+     */
     #[ORM\ManyToMany(targetEntity: Book::class)]
-    private $books;
+    private Collection $books;
 
     public function __construct()
     {
@@ -34,7 +39,7 @@ class Author
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -59,7 +64,7 @@ class Author
     }
 
     /**
-     * @return Collection<int<Book>>
+     * @return Collection<int, Book>
      */
     public function getBooks(): Collection
     {

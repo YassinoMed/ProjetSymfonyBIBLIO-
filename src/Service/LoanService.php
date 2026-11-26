@@ -81,8 +81,7 @@ final readonly class LoanService
             throw new \DomainException('Le nombre maximum de prolongations est atteint.');
         }
 
-        $book = $loan->getCopy()->getBook();
-        if (null !== $book && $this->reservationRepository->hasActiveReservationForBook($book)) {
+        if ($this->reservationRepository->hasActiveReservationForBook($loan->getCopy()->getBook())) {
             throw new \DomainException('Prolongation refusée : une réservation est en attente pour ce livre.');
         }
 

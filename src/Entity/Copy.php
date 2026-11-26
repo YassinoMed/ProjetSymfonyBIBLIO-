@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\CopyRepository;
@@ -14,24 +16,24 @@ class Copy
     private ?int $id = null;
 
     #[ORM\Column(length: 50, unique: true)]
-    private ?string $barcode = null;
+    private string $barcode;
 
     #[ORM\Column(length: 50)]
-    private ?string $status = null; // disponible, emprunté, réservé, en réparation, perdu
+    private string $status; // disponible, emprunté, réservé, en réparation, perdu
 
     #[ORM\Column(length: 50)]
-    private ?string $condition = null; // bon, abîmé, etc.
+    private string $condition; // bon, abîmé, etc.
 
     #[ORM\ManyToOne(inversedBy: 'copies')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Book $book = null;
+    private Book $book;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getBarcode(): ?string
+    public function getBarcode(): string
     {
         return $this->barcode;
     }
@@ -43,7 +45,7 @@ class Copy
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         return $this->status;
     }
@@ -55,7 +57,7 @@ class Copy
         return $this;
     }
 
-    public function getCondition(): ?string
+    public function getCondition(): string
     {
         return $this->condition;
     }
@@ -67,12 +69,12 @@ class Copy
         return $this;
     }
 
-    public function getBook(): ?Book
+    public function getBook(): Book
     {
         return $this->book;
     }
 
-    public function setBook(?Book $book): self
+    public function setBook(Book $book): self
     {
         $this->book = $book;
 

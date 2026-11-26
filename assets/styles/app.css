@@ -207,6 +207,18 @@ svg.icon {
     width: 1.25rem;
     height: 1.25rem;
 }
+svg.icon--small {
+    width: 1rem;
+    height: 1rem;
+}
+svg.icon--medium {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+svg.icon--large {
+    width: 1.5rem;
+    height: 1.5rem;
+}
 .sr-only {
     clip: rect(0 0 0 0);
     white-space: nowrap;

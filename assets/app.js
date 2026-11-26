@@ -456,6 +456,8 @@ function initChat() {
         const input = chat.querySelector('[data-chat-input]');
         const submit = form?.querySelector('button[type="submit"]');
         const endpoint = chat.dataset.chatEndpoint;
+        const mode = chat.dataset.chatMode ?? 'gemini';
+        const resetEndpoint = chat.dataset.chatResetEndpoint ?? '';
         const token = chat.dataset.chatToken ?? '';
 
         if (!form || !messages || !input || !endpoint) {
@@ -463,6 +465,14 @@ function initChat() {
         }
 
         let pending = false;
+
+        const decodeEntities = (value) => {
+            if (mode !== 'agent') {
+                return value;
+            }
+            const decoder = new DOMParser().parseFromString(value, 'text/html');
+            return decoder.documentElement.textContent ?? value;
+        };
 
         const scrollToLatest = () => {
             messages.scrollTop = messages.scrollHeight;
@@ -556,6 +566,10 @@ function initChat() {
             setPending(true);
 
             try {
+                const requestBody = mode === 'agent'
+                    ? { message: cleanQuestion }
+                    : { prompt: cleanQuestion };
+
                 const response = await fetch(endpoint, {
                     method: 'POST',
                     credentials: 'same-origin',
@@ -564,7 +578,7 @@ function initChat() {
                         'Content-Type': 'application/json',
                         'X-CSRF-Token': token,
                     },
-                    body: JSON.stringify({ prompt: cleanQuestion }),
+                    body: JSON.stringify(requestBody),
                 });
 
                 if (response.redirected) {
@@ -583,7 +597,8 @@ function initChat() {
                     // Réponse illisible : traitée comme une réponse vide.
                 }
 
-                const answer = typeof payload?.response === 'string' ? payload.response.trim() : '';
+                const rawAnswer = typeof payload?.response === 'string' ? payload.response.trim() : '';
+                const answer = decodeEntities(rawAnswer);
 
                 if (answer === '') {
                     throw new Error('L’assistant n’a renvoyé aucune réponse.');
@@ -615,6 +630,26 @@ function initChat() {
         chat.parentElement?.querySelectorAll('[data-chat-prompt]').forEach((prompt) => {
             prompt.addEventListener('click', () => {
                 sendQuestion(prompt.dataset.chatPrompt ?? '');
+            });
+        });
+
+        document.querySelectorAll('[data-chat-reset]').forEach((resetButton) => {
+            resetButton.addEventListener('click', async () => {
+                if (!resetEndpoint || pending) {
+                    return;
+                }
+                const response = await fetch(resetEndpoint, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        Accept: 'application/json',
+                        'X-CSRF-Token': token,
+                    },
+                });
+                if (response.ok) {
+                    messages.replaceChildren();
+                    addMessage('assistant', 'Historique effacé. Posez-moi une nouvelle question.');
+                }
             });
         });
     });

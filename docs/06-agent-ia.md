@@ -44,7 +44,8 @@ En parallèle du client Gemini existant, le socle de l'agent repose sur un clien
 | Service | `App\Agent\AgentService` (sans outils pour l'instant) |
 | Prompt système | `src/Agent/Prompt/system_prompt.txt` chargé par `App\Agent\Prompt\SystemPromptProvider` |
 | Historique | Tronqué aux `app.agent.max_history_messages` (`10`) derniers messages (`user`/`assistant` uniquement) |
-| Endpoint | `POST /chat` (`App\Controller\ChatController`, `ROLE_MEMBER`) |
+| Endpoint | `POST /chat`, `GET /assistant`, `GET /chat/history`, `POST /chat/reset` (`App\Controller\ChatController`, `ROLE_MEMBER`) |
+| Historique persistant | Entités `ChatConversation` / `ChatMessage` isolées par utilisateur (`ChatHistoryService`) |
 | Sécurité | Jeton CSRF `chat` (`X-CSRF-Token`), validation `ChatRequestDto`, réponse échappée (`htmlspecialchars`) |
 | Limite & mode dégradé | `10` req/min par utilisateur (`agent_chat`, réponse `429` + `Retry-After`) ; si le LLM est indisponible, réponse `503` claire sans impacter le reste de l'application |
 

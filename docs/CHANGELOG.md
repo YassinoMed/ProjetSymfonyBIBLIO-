@@ -23,6 +23,7 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) — versionnag
 - Boucle d'outils dans `AgentService` (`E3.5`) : 3 tours maximum, masquage des erreurs techniques internes, résultats traités comme données (`TOOL_DATA`), journalisation de chaque appel dans `AuditLog`.
 - Tests d'autorisation et de sécurité de l'agent (`E3.6`) et documentation sécurité/validation (`E3.7`) : `AgentSecurityTest` (`anonyme`, `userId` forgé, ID inventé, injection dans un résumé de livre, outil inexistant) et mise à jour de `docs/06-agent-ia.md`, `docs/09-securite.md`, `docs/08-validation.md`.
 - Catalogue BDD et CRUD bibliothécaire (Phase 1) : `CatalogService`, `BookVoter`, `BookType`, `CopyType`, `CatalogManagementController`, recherche `/catalogue` branchée sur PostgreSQL et tests fonctionnels.
+- Interface de chat intégrée avec historique persistant (Phase 6) : entités `ChatConversation` / `ChatMessage` (+ migration), `ChatHistoryService`, routes `GET /assistant`, `GET /chat/history`, `POST /chat/reset`, template `chat/index.html.twig` et support `data-chat-mode="agent"` dans `assets/app.js`.
 
 ### Sécurité
 - La clé Gemini n'est jamais écrite dans `.env`, les logs ou le navigateur ; elle transite par l'en-tête `x-goog-api-key`.

@@ -173,7 +173,6 @@ class Book
     {
         if ($this->copies->contains($copy)) {
             $this->copies->removeElement($copy);
-            $copy->setBook(null);
         }
 
         return $this;
