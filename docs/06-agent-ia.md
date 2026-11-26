@@ -48,6 +48,11 @@ En parallèle du client Gemini existant, le socle de l'agent repose sur un clien
 | Sécurité | Jeton CSRF `chat` (`X-CSRF-Token`), validation `ChatRequestDto`, réponse échappée (`htmlspecialchars`) |
 | Limite & mode dégradé | `10` req/min par utilisateur (`agent_chat`, réponse `429` + `Retry-After`) ; si le LLM est indisponible, réponse `503` claire sans impacter le reste de l'application |
 
+## Registre d'outils et protocole JSON strict (E3.2)
+
+- **Registre** : chaque outil implémente `App\Agent\Tool\AgentToolInterface` (tagué `app.agent_tool`) et s'enregistre dans `App\Agent\Tool\AgentToolRegistry`, qui expose les définitions et exécute l'outil avec l'utilisateur authentifié (`UserInterface`).
+- **Protocole sans function-calling natif** : le modèle demande un outil en renvoyant uniquement un objet JSON strict `{"tool": "<nom>", "arguments": {...}}` (éventuellement dans un bloc ```` ```json ````). L'analyse est isolée dans `App\Agent\Tool\ToolCallParser` pour faciliter une migration ultérieure vers le function-calling natif.
+
 ## Prompt système (modèle)
 ```
 Tu es l'assistant de la bibliothèque. Tu réponds en français, de façon concise et polie.
