@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Chat;
 
 use App\Agent\LlmClientInterface;
-use App\DataFixtures\AppFixtures;
 use App\Entity\User;
 use App\Exception\LlmInvalidResponseException;
 use App\Exception\LlmUnauthorizedException;
@@ -207,7 +206,7 @@ final class ChatControllerTest extends WebTestCase
         $user->setEmail($email);
         $user->setRoles($roles);
         $user->setPassword(
-            $container->get(UserPasswordHasherInterface::class)->hashPassword($user, AppFixtures::DEMO_PASSWORD),
+            $container->get(UserPasswordHasherInterface::class)->hashPassword($user, 'test-password'),
         );
 
         $entityManager = $container->get(EntityManagerInterface::class);
