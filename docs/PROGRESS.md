@@ -15,7 +15,7 @@
 > **Conséquence** : les phases 0 à 3 annoncées comme prérequis (catalogue, emprunts, réservations) ne sont pas réalisées. `DemoLibraryData` ne fournit que des tableaux de démonstration et `AppFixtures` ne crée que des utilisateurs. La suite E1.1 reste bloquée jusqu'à la réalisation de ces prérequis.
 
 ## Étape 1 — Client LLM et AgentService de base
-- [ ] E1.1 `LlmClientInterface` + `OpenAiCompatibleLlmClient` (HttpClient Symfony, POST {AGENT_BASE_URL}/v1/chat/completions, en-tête Bearer AGENT_API_KEY, modèle AGENT_MODEL, timeout 120 s, 1 nouvel essai, exceptions typées : LlmUnavailableException, LlmUnauthorizedException, LlmInvalidResponseException). Variables dans .env.example sans valeur réelle.
+- [x] E1.1 `LlmClientInterface` + `OpenAiCompatibleLlmClient` (HttpClient Symfony, POST {AGENT_BASE_URL}/v1/chat/completions, en-tête Bearer AGENT_API_KEY, modèle AGENT_MODEL, timeout 120 s, 1 nouvel essai, exceptions typées : LlmUnavailableException, LlmUnauthorizedException, LlmInvalidResponseException). Variables dans .env.example sans valeur réelle.
 - [ ] E1.2 `AgentService` sans outils : prompt système dans un fichier dédié (src/Agent/Prompt), historique tronqué aux N derniers messages (paramètre), `ChatController` minimal (POST /chat, utilisateur authentifié, protection CSRF, échappement de la réponse).
 - [ ] E1.3 Mode dégradé : si le LLM est indisponible, message clair à l'utilisateur et reste de l'application inchangé ; limitation de débit par utilisateur (rate limiter Symfony).
 - [ ] E1.4 Tests avec MockHttpClient : succès, 401, timeout, JSON invalide, réponse vide.

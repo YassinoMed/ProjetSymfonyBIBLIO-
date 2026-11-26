@@ -6,3 +6,15 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) — versionnag
 ### Ajouté
 - Documentation initiale du projet (`docs/00` à `docs/10`, `CLAUDE.md`).
 - Audit E0.1 : prérequis métier manquants (`Member`, `Book`, `Author`, `Category`, `Copy`, `Loan`, `Reservation` et services de prêt/réservation) consignés dans `docs/PROGRESS.md` sous `STATUT: BLOQUÉ` ; aucune implémentation.
+- Intégration Gemini sécurisée : `GeminiClientService` + `GeminiClientInterface`, endpoint `POST /api/ai/generate`, DTO `PromptRequestDto` validé, limite de 10 requêtes/minute par membre, tests unitaires et fonctionnels.
+- Interface de chat du tableau de bord reliée à l'endpoint réel (fetch same-origin, jeton CSRF, indicateur de rédaction, gestion des erreurs `403`/`429`/`502`) ; les réponses simulées sont supprimées.
+- Coffre Symfony Secrets pour `GEMINI_API_KEY` ; clés privées du coffre ignorées par Git.
+- Dépendances `symfony/http-client`, `symfony/rate-limiter`, `symfony/serializer`.
+- Client LLM compatible OpenAI (`E1.1`) : `App\Agent\LlmClientInterface`, `App\Agent\OpenAiCompatibleLlmClient` (timeout 120 s, 1 nouvelle tentative), exceptions `LlmUnavailableException`, `LlmUnauthorizedException`, `LlmInvalidResponseException`, variables `AGENT_BASE_URL`, `AGENT_API_KEY`, `AGENT_MODEL` dans `.env.example` / `.env` / `.env.test`, tests unitaires avec `MockHttpClient`.
+
+### Sécurité
+- La clé Gemini n'est jamais écrite dans `.env`, les logs ou le navigateur ; elle transite par l'en-tête `x-goog-api-key`.
+- Les erreurs de l'API amont sont journalisées côté serveur (statut et type d'exception uniquement) et remplacées par des messages génériques côté client.
+
+### Audit prérequis
+- E0.1 : statut BLOQUÉ — entités `Member`, `Book`, `Author`, `Category`, `Copy`, `Loan`, `Reservation` et services de prêt/réservation absents ; phases 0 à 3 à réaliser avant l'étape 1.

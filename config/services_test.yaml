@@ -1,0 +1,12 @@
+services:
+    # Rend le client Gemini remplaçable par un mock dans les tests fonctionnels.
+    # La définition est reprise ici : sans autowire/autoconfigure, elle remplacerait
+    # celle de services.yaml et perdrait ses arguments.
+    App\Service\GeminiClientService:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    App\Agent\LlmClientInterface:
+        alias: App\Agent\OpenAiCompatibleLlmClient
+        public: true

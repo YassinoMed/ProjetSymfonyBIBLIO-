@@ -3,6 +3,39 @@
 ## Rôle
 Assistant de la bibliothèque : aide à trouver des livres, informe sur la disponibilité et les emprunts de l'utilisateur connecté, effectue des actions simples après confirmation.
 
+## Implémentation actuelle (Gemini)
+
+Le fournisseur retenu est **Google Gemini** (`gemini-2.5-flash`), et non Claude/Anthropic. Le socle livré est volontairement limité à la génération de texte : les outils de lecture (phase 4) et d'écriture (phase 5) restent à construire.
+
+| Élément | Valeur |
+|---|---|
+| Service | `App\Service\GeminiClientService` (interface `GeminiClientInterface`) |
+| Endpoint | `POST /api/ai/generate` |
+| Interface | Panneau « Assistant de lecture » du tableau de bord `/membre`, appel `fetch` same-origin |
+| Droits | `ROLE_MEMBER` (`#[IsGranted]`) |
+| Entrée | JSON `{"prompt": "..."}` validé par `PromptRequestDto` (3 à 2000 caractères) |
+| Sortie | `{"status": "success", "response": "..."}` |
+| Erreurs | `403` jeton CSRF, `422` validation, `415` format, `429` quota, `502` amont indisponible |
+| Clé | Coffre Symfony (`GEMINI_API_KEY`), jamais dans `.env` ni côté navigateur |
+| Limite | 10 requêtes/minute par membre (`sliding_window`) |
+
+Le prompt système actuel est une consigne statique dans `AiController` : l'assistant ne reçoit aucune donnée personnelle et doit le dire plutôt que d'inventer. Il sera remplacé par le prompt complet ci-dessous lorsque les outils seront branchés.
+
+L'interface affiche un indicateur de rédaction pendant l'appel, échappe la réponse avec `textContent` (pas de HTML brut) et traduit les erreurs en messages lisibles (`429` avec délai, `403` session expirée, `502` indisponible).
+
+## Client LLM compatible OpenAI (socle agent)
+
+En parallèle du client Gemini existant, le socle de l'agent repose sur un client compatible OpenAI pour les serveurs sans appel d'outils natif :
+
+| Élément | Valeur |
+|---|---|
+| Interface / Service | `App\Agent\LlmClientInterface` → `App\Agent\OpenAiCompatibleLlmClient` |
+| Endpoint | `POST {AGENT_BASE_URL}/v1/chat/completions` |
+| Authentification | En-tête `Authorization: Bearer {AGENT_API_KEY}` |
+| Modèle | `AGENT_MODEL` |
+| Résilience | Timeout `120` s, `1` nouvelle tentative sur erreur réseau ou `5xx` |
+| Exceptions typées | `LlmUnavailableException`, `LlmUnauthorizedException`, `LlmInvalidResponseException` |
+
 ## Prompt système (modèle)
 ```
 Tu es l'assistant de la bibliothèque. Tu réponds en français, de façon concise et polie.
@@ -32,7 +65,8 @@ Tu es l'assistant de la bibliothèque. Tu réponds en français, de façon conci
 Suppression de données, modification de rôles ou de règles, consultation des données d'un autre membre (hors bibliothécaire/admin), paiement.
 
 ## Limites
-- 20 messages par minute et par utilisateur ; plafond de tokens par requête et par jour.
+- 10 générations par minute et par membre sur `/api/ai/generate` (implémenté, réponse `429` avec `Retry-After`) ; la même limite protège l'interface de chat.
+- Plafond de tokens par requête et par jour.
 - Historique tronqué à N derniers messages ; pas de données personnelles inutiles dans le contexte.
 - Si l'API est indisponible : message d'erreur clair, application utilisable sans chat.
 
