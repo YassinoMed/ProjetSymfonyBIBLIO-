@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% import 'components/icon.html.twig' as ui %}
+
+{% block title %}Connexion — La Bibliothèque{% endblock %}
+{% block description %}Accédez à votre espace La Bibliothèque pour suivre vos emprunts et vos réservations.{% endblock %}
+
+{% block body %}
+<section class="auth-page">
+    <div class="auth-page__visual" aria-hidden="true">
+        <div class="auth-page__visual-grid">
+            {% for i in range(1, 16) %}<span></span>{% endfor %}
+        </div>
+        <div class="auth-page__quote">
+            <span class="auth-page__quote-mark">“</span>
+            <blockquote>Les livres sont des<br>rencontres qui nous attendent.</blockquote>
+            <p>— L’équipe de La Bibliothèque</p>
+        </div>
+        <div class="auth-page__float-card">
+            {{ ui.icon('sparkles') }}
+            <span><strong>Un service qui vous suit</strong><small>Emprunts, réservations et conseils personnalisés.</small></span>
+        </div>
+    </div>
+
+    <div class="auth-page__form-wrap">
+        <div class="auth-card">
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Espace personnel</p>
+            <h1>Ravi de vous revoir</h1>
+            <p class="auth-card__lead">Connectez-vous pour retrouver vos lectures et vos prochaines échéances.</p>
+
+            {% if error %}
+                <div class="alert alert--error" role="alert">
+                    {{ error.messageKey == 'Invalid CSRF token.' ? 'Session expirée, veuillez recharger la page.' : 'Identifiants invalides.' }}
+                </div>
+            {% endif %}
+
+            <form class="auth-form" method="post" action="{{ path('app_login') }}">
+                <div class="field">
+                    <div class="field__label-row">
+                        <label for="login-email">Adresse e-mail</label>
+                    </div>
+                    <input class="field__control" id="login-email" type="email" name="_username" value="{{ last_username }}" autocomplete="email" required autofocus>
+                </div>
+
+                <div class="field">
+                    <div class="field__label-row">
+                        <label for="login-password">Mot de passe</label>
+                    </div>
+                    <div class="field__control field__control--with-action">
+                        <input id="login-password" type="password" name="_password" autocomplete="current-password" required>
+                        <button class="field__trailing" type="button" data-password-toggle aria-controls="login-password" aria-label="Afficher le mot de passe">{{ ui.icon('eye') }}</button>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="button button--primary button--wide" type="submit">Se connecter {{ ui.icon('arrow-right') }}</button>
+            </form>
+
+            <div class="auth-divider"><span>Les espaces de démonstration</span></div>
+            <div class="demo-roles">
+                <a href="{{ path('app_member') }}">
+                    <span class="avatar avatar--small" aria-hidden="true">YN</span>
+                    <span><strong>Espace membre</strong><small>Emprunts, réservations et assistant</small></span>
+                    {{ ui.icon('arrow-right') }}
+                </a>
+                <a href="{{ path('app_librarian') }}">
+                    <span class="avatar avatar--small" aria-hidden="true">AB</span>
+                    <span><strong>Espace bibliothécaire</strong><small>Retours, retards et opérations</small></span>
+                    {{ ui.icon('arrow-right') }}
+                </a>
+                <a href="{{ path('app_admin') }}">
+                    <span class="avatar avatar--small" aria-hidden="true">AM</span>
+                    <span><strong>Administration</strong><small>Rôles, règles et journal d’audit</small></span>
+                    {{ ui.icon('arrow-right') }}
+                </a>
+            </div>
+            <p class="auth-card__legal">La connexion est protégée par Symfony Security. Les espaces sont réellement réservés selon votre rôle.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

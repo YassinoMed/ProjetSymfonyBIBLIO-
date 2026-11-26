@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bibliothèque — Accueil{% endblock %}
+
+{% block body %}
+    <section class="hero">
+        <p class="eyebrow">Bibliothèque</p>
+        <h1>Bienvenue à la bibliothèque</h1>
+        <p class="lede">
+            Consultez le catalogue, suivez vos emprunts et vos réservations,
+            et accédez aux outils de gestion selon votre rôle.
+        </p>
+
+        <div class="hero__actions">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="button" href="{{ path('app_admin') }}">Ouvrir l’administration</a>
+            {% elseif is_granted('ROLE_LIBRARIAN') %}
+                <a class="button" href="{{ path('app_librarian') }}">Ouvrir l’espace bibliothécaire</a>
+            {% elseif is_granted('ROLE_MEMBER') %}
+                <a class="button" href="{{ path('app_member') }}">Ouvrir mon espace</a>
+            {% else %}
+                <a class="button" href="{{ path('app_login') }}">Se connecter</a>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="feature-grid" aria-label="Les services de la bibliothèque">
+        <article class="feature">
+            <h2>Catalogue</h2>
+            <p>Recherchez les œuvres, les auteurs et les exemplaires disponibles.</p>
+        </article>
+        <article class="feature">
+            <h2>Emprunts</h2>
+            <p>Suivez les échéances, les prolongations et les retours.</p>
+        </article>
+        <article class="feature">
+            <h2>Réservations</h2>
+            <p>Réservez un document et consultez sa disponibilité.</p>
+        </article>
+    </section>
+{% endblock %}

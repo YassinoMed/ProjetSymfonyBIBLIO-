@@ -1,0 +1,113 @@
+{% extends 'app/layout.html.twig' %}
+{% import 'components/icon.html.twig' as ui %}
+
+{% block title %}Espace bibliothécaire — La Bibliothèque{% endblock %}
+
+{% block dashboard %}
+<section class="dashboard-welcome" data-reveal>
+    <div>
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Centre des opérations</p>
+        <h1>Bonjour Amel</h1>
+        <p class="lede">Trois actions demandent votre attention. Le reste avance sans intervention.</p>
+    </div>
+    <div class="dashboard-welcome__actions">
+        <button class="button button--primary" type="button" data-toast-message="Le prêt a été enregistré.">{{ ui.icon('plus') }} Enregistrer un prêt</button>
+        <button class="button" type="button" data-toast-message="Le retour a été enregistré.">{{ ui.icon('rotate') }} Enregistrer un retour</button>
+    </div>
+</section>
+
+<section class="metric-grid" aria-label="Indicateurs d’activité">
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--vermilion">{{ ui.icon('alert') }}</span>
+        <div><small>Retards à traiter</small><strong>12</strong><span class="metric-card__trend metric-card__trend--danger">+3 depuis hier</span></div>
+    </article>
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--ochre">{{ ui.icon('bookmark') }}</span>
+        <div><small>Réservations prêtes</small><strong>7</strong><span class="metric-card__trend">3 à retirer aujourd’hui</span></div>
+    </article>
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--cobalt">{{ ui.icon('rotate') }}</span>
+        <div><small>Retours aujourd’hui</small><strong>28</strong><span class="metric-card__trend">8 déjà enregistrés</span></div>
+    </article>
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--moss">{{ ui.icon('users') }}</span>
+        <div><small>Membres actifs</small><strong>1 248</strong><span class="metric-card__trend">+18 ce mois-ci</span></div>
+    </article>
+</section>
+
+<div class="dashboard-grid dashboard-grid--staff">
+    <section class="dashboard-panel dashboard-panel--feature" id="operations">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">Priorités</p><h2>Actions à traiter</h2></div>
+            <span class="count-pill count-pill--danger">{{ tasks|length }}</span>
+        </div>
+        <div class="task-list">
+            {% for task in tasks %}
+                <article class="task-row" data-task-row>
+                    <span class="task-row__indicator task-row__indicator--{{ task.tone }}" aria-hidden="true"></span>
+                    <div><strong>{{ task.action }}</strong><span>{{ task.member }} · {{ task.detail }}</span></div>
+                    <small>{{ task.age }}</small>
+                    <button class="icon-button" type="button" data-toast-message="{{ task.action }} : la fiche a été ouverte." aria-label="Traiter {{ task.action }}">{{ ui.icon('chevron-right') }}</button>
+                </article>
+            {% endfor %}
+        </div>
+        <button class="panel-footer-link" type="button" data-toast-message="La file complète sera ouverte dans la prochaine version.">Ouvrir la file complète →</button>
+    </section>
+
+    <section class="dashboard-panel">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">Flux du jour</p><h2>Activité récente</h2></div>
+            <div class="segmented-tabs" role="tablist" aria-label="Période du graphique">
+                <button type="button" role="tab" aria-selected="true" data-chart-period="week">Semaine</button>
+                <button type="button" role="tab" aria-selected="false" data-chart-period="month">Mois</button>
+            </div>
+        </div>
+        <div class="activity-chart">
+            <div class="activity-chart__summary"><strong>184</strong><span class="reading-chart__total">transactions</span></div>
+            <div class="activity-chart__bars" aria-label="Activité des sept derniers jours">
+                {% set days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'] %}
+                {% set heights = [42, 66, 52, 84, 72, 38, 24] %}
+                {% for day in days %}
+                    <div class="activity-chart__column"><span style="--bar-height: {{ heights[loop.index0] }}%"></span><small>{{ day }}</small></div>
+                {% endfor %}
+            </div>
+            <div class="activity-chart__legend"><span><i class="legend-dot legend-dot--primary"></i>Retours</span><span><i class="legend-dot legend-dot--secondary"></i>Prêts</span></div>
+        </div>
+    </section>
+
+    <section class="dashboard-panel" id="members">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">Suivi</p><h2>Membres recently active</h2></div>
+            <button class="text-link text-link--small" type="button" data-toast-message="La recherche de membre est prête.">Rechercher</button>
+        </div>
+        <div class="member-table-wrap" role="table" aria-label="Suivi des membres">
+            <div class="member-table__head" role="row">
+                <span role="columnheader">Membre</span><span role="columnheader">Emprunts</span><span role="columnheader">Réservations</span><span role="columnheader">État</span><span role="columnheader">Dernière visite</span><span role="columnheader"><span class="sr-only">Actions</span></span>
+            </div>
+            {% for member in members %}
+                <div class="member-table__row" data-member-row role="row">
+                    <span class="member-table__person" role="cell"><span class="avatar avatar--small" aria-hidden="true">{{ member.name|slice(0, 2)|upper }}</span><span><strong>{{ member.name }}</strong><small>{{ member.email }}</small></span></span>
+                    <span role="cell">{{ member.loans }}</span>
+                    <span role="cell">{{ member.reservations }}</span>
+                    <span class="permission {{ member.active ? 'permission--allowed' : 'permission--denied' }}" role="cell" aria-label="{{ member.active ? 'Actif' : 'Suspendu' }}">{% if member.active %}{{ ui.icon('check') }}{% else %}—{% endif %}</span>
+                    <span role="cell">{{ member.lastVisit }}</span>
+                    <span role="cell"><button class="icon-button" type="button" aria-label="Ouvrir la fiche de {{ member.name }}">{{ ui.icon('more') }}</button></span>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="panel-footer-link" type="button" data-toast-message="Tous les membres sont disponibles dans la prochaine version.">Voir tous les membres →</button>
+    </section>
+
+    <section class="dashboard-panel">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">État du service</p><h2>Santé du catalogue</h2></div>
+            <span class="sync-badge"><i></i>Synchronisé</span>
+        </div>
+        <div class="health-list">
+            <div class="health-row"><span class="health-row__dot"></span><div><strong>Index de recherche</strong><small>42 812 notices</small></div><span>À jour</span></div>
+            <div class="health-row"><span class="health-row__dot"></span><div><strong>Agent IA</strong><small>Service conversationnel</small></div><span>En ligne</span></div>
+            <div class="health-row"><span class="health-row__dot" style="background: var(--ds-color-warning)"></span><div><strong>Import du patrimoine</strong><small>1 204 notices en attente</small></div><span>À vérifier</span></div>
+        </div>
+    </section>
+</div>
+{% endblock %}

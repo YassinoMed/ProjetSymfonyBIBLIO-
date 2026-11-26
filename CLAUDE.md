@@ -1,12 +1,12 @@
 # Bibliothèque — Application de gestion avec agent IA
 
-Application web de gestion de bibliothèque (catalogue, membres, emprunts) avec un agent conversationnel basé sur l'API Claude.
+Application web de gestion de bibliothèque (catalogue, membres, emprunts) avec un assistant conversationnel basé sur l'API Gemini.
 
 ## Stack
 - PHP 8.5.11, Symfony 8.x, Doctrine ORM
 - PostgreSQL 16
 - Twig + Symfony UX (Turbo / Stimulus)
-- API Claude (Anthropic) via `AgentService`
+- API Gemini (Google) via `GeminiClientService`
 - PHPUnit, Panther, PHPStan, PHP-CS-Fixer
 - Docker Compose (dev), GitHub Actions (CI)
 
@@ -14,9 +14,11 @@ Application web de gestion de bibliothèque (catalogue, membres, emprunts) avec 
 ```
 docker compose up -d            # environnement local
 composer install
+php bin/console secrets:set GEMINI_API_KEY   # clé API (coffre Symfony)
 php bin/console doctrine:migrations:migrate
 symfony serve                   # serveur de dev
 php bin/phpunit                 # tests
+npm run build                   # assets (Vite → public/build/)
 vendor/bin/phpstan analyse      # analyse statique
 vendor/bin/php-cs-fixer fix     # style PSR-12
 ```

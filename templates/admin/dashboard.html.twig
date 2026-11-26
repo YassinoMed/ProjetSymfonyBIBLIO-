@@ -1,0 +1,116 @@
+{% extends 'app/layout.html.twig' %}
+{% import 'components/icon.html.twig' as ui %}
+
+{% block title %}Administration — La Bibliothèque{% endblock %}
+
+{% block dashboard %}
+<section class="dashboard-welcome" data-reveal>
+    <div>
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Contrôle de la bibliothèque</p>
+        <h1>Bonjour Amine</h1>
+        <p class="lede">Les rôles, les règles et les opérations sensibles sont regroupés ici.</p>
+    </div>
+    <div class="dashboard-welcome__actions">
+        <button class="button button--primary" type="button" data-toast-message="L’invitation a été préparée.">{{ ui.icon('plus') }} Inviter un membre</button>
+        <button class="button" type="button" data-toast-message="Les règles ont été exportées.">{{ ui.icon('copy') }} Exporter les règles</button>
+    </div>
+</section>
+
+<section class="metric-grid" aria-label="Indicateurs d’administration">
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--cobalt">{{ ui.icon('users') }}</span>
+        <div><small>Comptes actifs</small><strong>1 248</strong><span class="metric-card__trend">+18 ce mois-ci</span></div>
+    </article>
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--moss">{{ ui.icon('shield') }}</span>
+        <div><small>Rôles configurés</small><strong>3</strong><span class="metric-card__trend">Hiérarchie cohérente</span></div>
+    </article>
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--ochre">{{ ui.icon('audit') }}</span>
+        <div><small>Événements aujourd’hui</small><strong>46</strong><span class="metric-card__trend">Aucune alerte</span></div>
+    </article>
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--plum">{{ ui.icon('settings') }}</span>
+        <div><small>Règles actives</small><strong>{{ rules|filter(v => v.enabled)|length }}</strong><span class="metric-card__trend metric-card__trend--warning">1 à examiner</span></div>
+    </article>
+</section>
+
+<div class="dashboard-grid dashboard-grid--admin">
+    <section class="dashboard-panel dashboard-panel--feature" id="members">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">Accès</p><h2>Comptes et rôles</h2></div>
+            <span class="count-pill">{{ members|length }}</span>
+        </div>
+        <div class="roles-table-wrap" role="table" aria-label="Comptes et rôles">
+            <div class="roles-table__head" role="row">
+                <span role="columnheader">Compte</span><span role="columnheader">Membre</span><span role="columnheader">Bibliothécaire</span><span role="columnheader">Admin</span><span role="columnheader">État</span><span role="columnheader"><span class="sr-only">Actions</span></span>
+            </div>
+            {% for member in members %}
+                <div class="roles-table__row" data-role-row role="row">
+                    <span class="member-table__person" role="cell"><span class="avatar avatar--small" aria-hidden="true">{{ member.name|slice(0, 2)|upper }}</span><span><strong>{{ member.name }}</strong><small>{{ member.email }}</small></span></span>
+                    <span class="permission permission--allowed" role="cell">{{ ui.icon('check') }}<span class="sr-only">Accès membre</span></span>
+                    <span class="permission {{ loop.index <= 2 ? 'permission--allowed' : 'permission--denied' }}" role="cell">{% if loop.index <= 2 %}{{ ui.icon('check') }}{% else %}—{% endif %}<span class="sr-only">Accès bibliothécaire</span></span>
+                    <span class="permission {{ loop.index == 1 ? 'permission--allowed' : 'permission--denied' }}" role="cell">{% if loop.index == 1 %}{{ ui.icon('check') }}{% else %}—{% endif %}<span class="sr-only">Accès administrateur</span></span>
+                    <span class="sync-badge" role="cell"><i></i>{{ member.active ? 'Actif' : 'Suspendu' }}</span>
+                    <span role="cell"><button class="icon-button" type="button" aria-label="Modifier le rôle de {{ member.name }}" data-toast-message="Le rôle de {{ member.name }} peut maintenant être modifié.">{{ ui.icon('more') }}</button></span>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="panel-footer-link" type="button" data-toast-message="La gestion complète des comptes est réservée au prochain lot.">Gérer tous les comptes →</button>
+    </section>
+
+    <section class="dashboard-panel" id="rules">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">Configuration</p><h2>Règles de prêt</h2></div>
+            <span class="sync-badge"><i></i>Synchronisé</span>
+        </div>
+        <div class="rules-list">
+            {% for rule in rules %}
+                <div class="rule-row">
+                    <span class="rule-row__icon">{{ ui.icon('settings') }}</span>
+                    <div><strong>{{ rule.name }}</strong><small>{{ rule.description }}</small></div>
+                    <label class="toggle-field">
+                        <input type="checkbox" {{ rule.enabled ? 'checked' : '' }} aria-label="Activer : {{ rule.name }}">
+                        <span class="toggle-field__track" aria-hidden="true"><i></i></span>
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="rules-footer">
+            <button class="button button--primary button--small" type="button" data-toast-message="Les règles ont été enregistrées.">Enregistrer les modifications</button>
+        </div>
+    </section>
+
+    <section class="dashboard-panel dashboard-panel--wide" id="audit">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">Traçabilité</p><h2>Journal d’audit</h2></div>
+            <div class="audit-filters">
+                <button class="chip is-active" type="button" data-audit-filter="all">Tout</button>
+                <button class="chip" type="button" data-audit-filter="access">Accès</button>
+                <button class="chip" type="button" data-audit-filter="catalogue">Catalogue</button>
+            </div>
+        </div>
+        <div class="audit-list">
+            {% for event in auditEvents %}
+                <article class="audit-row" data-audit-row data-audit-category="{{ loop.index == 2 ? 'access' : 'catalogue' }}">
+                    <span class="audit-row__icon">{{ ui.icon('audit') }}</span>
+                    <div><strong>{{ event.action }}</strong><small>{{ event.actor }} · {{ event.target }}</small></div>
+                    <time>{{ event.time }}</time>
+                </article>
+            {% endfor %}
+        </div>
+        <button class="panel-footer-link" type="button" data-toast-message="Le journal complet est disponible dans l’export d’audit.">Exporter le journal →</button>
+    </section>
+
+    <section class="dashboard-panel">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">Système</p><h2>État des services</h2></div>
+        </div>
+        <div class="health-list">
+            <div class="health-row"><span class="health-row__dot"></span><div><strong>Base du catalogue</strong><small>Synchronisation il y a 2 min</small></div><span>Opérationnel</span></div>
+            <div class="health-row"><span class="health-row__dot"></span><div><strong>Service d’authentification</strong><small>SecurityBundle</small></div><span>Opérationnel</span></div>
+            <div class="health-row"><span class="health-row__dot" style="background: var(--ds-color-warning)"></span><div><strong>Agent conversationnel</strong><small>Mode démonstration</small></div><span>Simulé</span></div>
+        </div>
+    </section>
+</div>
+{% endblock %}

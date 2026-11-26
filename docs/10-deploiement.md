@@ -4,7 +4,7 @@
 | Environnement | Usage | Particularités |
 |---|---|---|
 | `dev` | Développement local | Docker Compose, fixtures, debug activé |
-| `test` | CI | Base éphémère, API Claude mockée |
+| `test` | CI | Base éphémère, client Gemini mocké |
 | `staging` | Recette | Données anonymisées, clé API dédiée |
 | `prod` | Production | `APP_ENV=prod`, debug désactivé, HTTPS |
 
@@ -13,10 +13,10 @@
 |---|---|
 | `APP_ENV`, `APP_SECRET` | Environnement et secret Symfony |
 | `DATABASE_URL` | Connexion PostgreSQL |
-| `ANTHROPIC_API_KEY` | Clé de l'API Claude |
-| `AGENT_MODEL` | Modèle Claude utilisé |
-| `AGENT_RATE_LIMIT`, `AGENT_MAX_TOKENS` | Quotas de l'agent |
+| `GEMINI_API_KEY` | Clé Gemini, stockée dans le coffre Symfony (`secrets:set`) |
 | `MAILER_DSN` | Envoi d'emails (notifications) |
+
+Les quotas de l'assistant sont configurés dans `config/packages/rate_limiter.yaml` (10 requêtes/minute par membre).
 
 Les secrets de production sont gérés par un coffre de secrets (ou `secrets:set` de Symfony), jamais commités.
 
@@ -31,4 +31,4 @@ Les secrets de production sont gérés par un coffre de secrets (ou `secrets:set
 - Test de restauration mensuel.
 
 ## Supervision
-Logs applicatifs centralisés, alertes sur erreurs 5xx, échecs de l'API Claude et dépassement de coût.
+Logs applicatifs centralisés, alertes sur erreurs 5xx, échecs de l'API Gemini et dépassement de coût.

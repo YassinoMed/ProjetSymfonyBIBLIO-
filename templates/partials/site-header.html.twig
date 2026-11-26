@@ -1,0 +1,59 @@
+{% import 'components/icon.html.twig' as ui %}
+<header class="site-header" data-site-header>
+    <div class="site-header__inner">
+        <a class="brand" href="{{ path('app_home') }}" aria-label="La Bibliothèque, accueil">
+            <span class="brand__mark" aria-hidden="true"><span></span><span></span></span>
+            <span class="brand__name">La Bibliothèque</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Navigation principale">
+            <a href="{{ path('app_catalog') }}" {% if app.request.attributes.get('_route') == 'app_catalog' %}aria-current="page"{% endif %}>Catalogue</a>
+            {% if is_granted('ROLE_MEMBER') %}
+                <a href="{{ path('app_member') }}" {% if app.request.attributes.get('_route') == 'app_member' %}aria-current="page"{% endif %}>Mon espace</a>
+            {% endif %}
+            {% if is_granted('ROLE_LIBRARIAN') %}
+                <a href="{{ path('app_librarian') }}" {% if app.request.attributes.get('_route') == 'app_librarian' %}aria-current="page"{% endif %}>Bibliothèque</a>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_admin') }}" {% if app.request.attributes.get('_route') == 'app_admin' %}aria-current="page"{% endif %}>Administration</a>
+            {% endif %}
+        </nav>
+
+        <div class="site-header__actions">
+            {% include 'partials/theme-switcher.html.twig' %}
+            {% if app.user %}
+                <span class="user-email" title="{{ app.user.userIdentifier }}">{{ app.user.userIdentifier }}</span>
+                <form method="post" action="{{ path('app_logout') }}" class="site-header__logout">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+                    <button type="submit" class="button button--small button--ghost">Se déconnecter</button>
+                </form>
+            {% else %}
+                <a class="button button--primary site-header__login" href="{{ path('app_login') }}">Se connecter</a>
+            {% endif %}
+            <button class="icon-button site-header__menu" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-navigation" aria-label="Ouvrir le menu">
+                {{ ui.icon('menu') }}
+            </button>
+        </div>
+    </div>
+
+    <nav class="mobile-navigation hidden" id="mobile-navigation" data-mobile-menu aria-label="Navigation mobile">
+        <a href="{{ path('app_catalog') }}">{{ ui.icon('search') }} Catalogue</a>
+        {% if is_granted('ROLE_MEMBER') %}
+            <a href="{{ path('app_member') }}">{{ ui.icon('user') }} Mon espace</a>
+        {% endif %}
+        {% if is_granted('ROLE_LIBRARIAN') %}
+            <a href="{{ path('app_librarian') }}">{{ ui.icon('library') }} Espace bibliothèque</a>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_admin') }}">{{ ui.icon('shield') }} Administration</a>
+        {% endif %}
+        {% if app.user %}
+            <form method="post" action="{{ path('app_logout') }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+                <button type="submit" class="button button--small button--ghost">Quitter la session</button>
+            </form>
+        {% else %}
+            <a href="{{ path('app_login') }}">{{ ui.icon('user') }} Se connecter</a>
+        {% endif %}
+    </nav>
+</header>

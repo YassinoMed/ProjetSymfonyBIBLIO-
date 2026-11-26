@@ -1,0 +1,1207 @@
+{
+ "url": "http://127.0.0.1:8124/catalogue",
+ "at": "2026-11-26T07:43:24.403Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.86,
+    0.72
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 1781,
+     "screens": 2,
+     "words": 282,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 9,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "Le catalogue",
+     "words": 2,
+     "chars": 12,
+     "lines": 1,
+     "size": 48,
+     "vw": 3.3,
+     "font": "system-ui",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.05,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.95,
+     "top": 129,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Le catalogue",
+     "words": 2,
+     "lines": 1,
+     "size": 48,
+     "font": "system-ui"
+    },
+    "headings": [
+     {
+      "text": "Le catalogue",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "system-ui",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 129,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Explorer",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 40,
+      "vw": 2.8,
+      "font": "system-ui",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.21,
+      "top": 1458,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Une question ?",
+      "words": 3,
+      "chars": 14,
+      "lines": 1,
+      "size": 40,
+      "vw": 2.8,
+      "font": "system-ui",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.21,
+      "top": 1458,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Un livre, une fois par semaine.",
+      "words": 6,
+      "chars": 31,
+      "lines": 2,
+      "size": 40,
+      "vw": 2.8,
+      "font": "system-ui",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.21,
+      "top": 1493,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 4,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "system-ui",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20,
+      40,
+      48
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "system-ui",
+      "size": 15.2,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.5
+     },
+     "measureChars": 101,
+     "max": {
+      "size": 48,
+      "vw": 3.3,
+      "font": "system-ui",
+      "text": "Le catalogue"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 2,
+     "microLabelShare": 0.026,
+     "microSamples": [
+      "Catalogue vivant",
+      "La sélection du vendredi"
+     ],
+     "upperShare": 0.07,
+     "centerShare": 0.32,
+     "smallText": 16
+    },
+    "eyebrows": [
+     {
+      "text": "Catalogue vivant",
+      "above": "Le catalogue",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 109
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f3efe6",
+     "bodyBgHsl": {
+      "h": 42,
+      "s": 0.35,
+      "l": 0.93
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 1417,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.28
+      },
+      {
+       "color": "#1d1d1b",
+       "share": 0.25
+      },
+      {
+       "color": "#6c6860",
+       "share": 0.18
+      },
+      {
+       "color": "#464642",
+       "share": 0.14
+      },
+      {
+       "color": "#2f663c",
+       "share": 0.08
+      }
+     ],
+     "button": {
+      "bg": "#a24a33",
+      "hsl": {
+       "h": 12,
+       "s": 0.52,
+       "l": 0.42
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 4,
+     "radius": 8,
+     "height": 39,
+     "withShadow": 2,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Aller au contenu principal",
+      "Catalogue",
+      "Se connecter",
+      "Rechercher"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 23,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "input#catalog-search-input → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+      "button.button.button--primary → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+      "select#catalog-category.select-field → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+      "select#catalog-status.select-field → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px"
+     ],
+     "gradients": 8,
+     "scrims": 8,
+     "gradientSamples": [
+      "span.book-cover.book-cover--plum → linear-gradient(145deg, rgb(133, 80, 128), rgb(77, 40, 79))",
+      "span.book-cover.book-cover--moss → linear-gradient(145deg, rgb(109, 143, 92), rgb(54, 86, 59))",
+      "span.book-cover.book-cover--slate → linear-gradient(145deg, rgb(104, 115, 125), rgb(54, 64, 74))",
+      "span.book-cover.book-cover--ochre → linear-gradient(145deg, rgb(199, 130, 50), rgb(142, 75, 32))"
+     ],
+     "gradientText": 0,
+     "hairlines": 12,
+     "hairlineSamples": [
+      "header.site-header 1440px",
+      "section.page-hero.page-hero--catalog 1440px",
+      "button.catalog-card__cover 256px",
+      "button.catalog-card__cover 256px",
+      "button.catalog-card__cover 256px"
+     ],
+     "outlinedBoxes": 16,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 16,
+     "boxRadius": 20,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 8,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 392
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 65,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 4,
+   "filled": [
+    0.9,
+    0.96,
+    0.96,
+    0.96
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 3716,
+     "screens": 3.6,
+     "words": 282,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 9,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "Le catalogue",
+     "words": 2,
+     "chars": 12,
+     "lines": 1,
+     "size": 32,
+     "vw": 4.2,
+     "font": "system-ui",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.05,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.96,
+     "top": 129,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Le catalogue",
+     "words": 2,
+     "lines": 1,
+     "size": 32,
+     "font": "system-ui"
+    },
+    "headings": [
+     {
+      "text": "Le catalogue",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "system-ui",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 129,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "system-ui",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20,
+      24,
+      32
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "system-ui",
+      "size": 15.2,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.5
+     },
+     "measureChars": 97,
+     "max": {
+      "size": 32,
+      "vw": 4.2,
+      "font": "system-ui",
+      "text": "Le catalogue"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 2,
+     "microLabelShare": 0.026,
+     "microSamples": [
+      "Catalogue vivant",
+      "La sélection du vendredi"
+     ],
+     "upperShare": 0.07,
+     "centerShare": 0.32,
+     "smallText": 16
+    },
+    "eyebrows": [
+     {
+      "text": "Catalogue vivant",
+      "above": "Le catalogue",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 109
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f3efe6",
+     "bodyBgHsl": {
+      "h": 42,
+      "s": 0.35,
+      "l": 0.93
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 2927,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.28
+      },
+      {
+       "color": "#1d1d1b",
+       "share": 0.25
+      },
+      {
+       "color": "#6c6860",
+       "share": 0.18
+      },
+      {
+       "color": "#464642",
+       "share": 0.14
+      },
+      {
+       "color": "#2f663c",
+       "share": 0.08
+      }
+     ],
+     "button": {
+      "bg": "#a24a33",
+      "hsl": {
+       "h": 12,
+       "s": 0.52,
+       "l": 0.42
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 2,
+     "radius": 8,
+     "height": 39,
+     "withShadow": 2,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Aller au contenu principal",
+      "Rechercher"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 23,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "input#catalog-search-input → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+      "button.button.button--primary → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+      "select#catalog-category.select-field → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+      "select#catalog-status.select-field → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px"
+     ],
+     "gradients": 8,
+     "scrims": 8,
+     "gradientSamples": [
+      "span.book-cover.book-cover--plum → linear-gradient(145deg, rgb(133, 80, 128), rgb(77, 40, 79))",
+      "span.book-cover.book-cover--moss → linear-gradient(145deg, rgb(109, 143, 92), rgb(54, 86, 59))",
+      "span.book-cover.book-cover--slate → linear-gradient(145deg, rgb(104, 115, 125), rgb(54, 64, 74))",
+      "span.book-cover.book-cover--ochre → linear-gradient(145deg, rgb(199, 130, 50), rgb(142, 75, 32))"
+     ],
+     "gradientText": 0,
+     "hairlines": 12,
+     "hairlineSamples": [
+      "header.site-header 768px",
+      "section.page-hero.page-hero--catalog 768px",
+      "button.catalog-card__cover 356px",
+      "button.catalog-card__cover 356px",
+      "button.catalog-card__cover 356px"
+     ],
+     "outlinedBoxes": 16,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 16,
+     "boxRadius": 20,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 8,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 430
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 65,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 8,
+   "filled": [
+    0.86,
+    0.93,
+    0.93,
+    0.93,
+    0.93,
+    0.93,
+    0.93,
+    0.93
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 6384,
+     "screens": 7.6,
+     "words": 284,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 9,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "Le catalogue",
+     "words": 2,
+     "chars": 12,
+     "lines": 1,
+     "size": 32,
+     "vw": 8.2,
+     "font": "system-ui",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.05,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 143,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Le catalogue",
+     "words": 2,
+     "lines": 1,
+     "size": 32,
+     "font": "system-ui"
+    },
+    "headings": [
+     {
+      "text": "Le catalogue",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "system-ui",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 143,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Explorer",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "system-ui",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5743,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Une question ?",
+      "words": 3,
+      "chars": 14,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "system-ui",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5951,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Un livre, une fois par semaine.",
+      "words": 6,
+      "chars": 31,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "system-ui",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6164,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 4,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "system-ui",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20,
+      24,
+      32
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "system-ui",
+      "size": 15.2,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.5
+     },
+     "measureChars": 47,
+     "max": {
+      "size": 32,
+      "vw": 8.2,
+      "font": "system-ui",
+      "text": "Le catalogue"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 2,
+     "microLabelShare": 0.026,
+     "microSamples": [
+      "Catalogue vivant",
+      "La sélection du vendredi"
+     ],
+     "upperShare": 0.07,
+     "centerShare": 0.32,
+     "smallText": 16
+    },
+    "eyebrows": [
+     {
+      "text": "Catalogue vivant",
+      "above": "Le catalogue",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 123
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f3efe6",
+     "bodyBgHsl": {
+      "h": 42,
+      "s": 0.35,
+      "l": 0.93
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 858,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#f7f4ee",
+       "top": 646,
+       "hsl": {
+        "h": 40,
+        "s": 0.36,
+        "l": 0.95
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.28
+      },
+      {
+       "color": "#1d1d1b",
+       "share": 0.26
+      },
+      {
+       "color": "#6c6860",
+       "share": 0.17
+      },
+      {
+       "color": "#464642",
+       "share": 0.14
+      },
+      {
+       "color": "#2f663c",
+       "share": 0.08
+      }
+     ],
+     "button": {
+      "bg": "#a24a33",
+      "hsl": {
+       "h": 12,
+       "s": 0.52,
+       "l": 0.42
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 3,
+     "inHero": 2,
+     "radius": 12,
+     "height": 39,
+     "withShadow": 2,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Aller au contenu principal",
+      "Rechercher"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 23,
+     "shadowOverlay": 4,
+     "shadowSamples": [
+      "input#catalog-search-input → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+      "button.button.button--primary → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+      "select#catalog-category.select-field → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+      "select#catalog-status.select-field → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px"
+     ],
+     "gradients": 8,
+     "scrims": 8,
+     "gradientSamples": [
+      "span.book-cover.book-cover--plum → linear-gradient(145deg, rgb(133, 80, 128), rgb(77, 40, 79))",
+      "span.book-cover.book-cover--moss → linear-gradient(145deg, rgb(109, 143, 92), rgb(54, 86, 59))",
+      "span.book-cover.book-cover--slate → linear-gradient(145deg, rgb(104, 115, 125), rgb(54, 64, 74))",
+      "span.book-cover.book-cover--ochre → linear-gradient(145deg, rgb(199, 130, 50), rgb(142, 75, 32))"
+     ],
+     "gradientText": 0,
+     "hairlines": 13,
+     "hairlineSamples": [
+      "header.site-header 390px",
+      "nav#mobile-navigation.mobile-navigation.hidden 320px",
+      "section.page-hero.page-hero--catalog 390px",
+      "button.catalog-card__cover 356px",
+      "button.catalog-card__cover 356px"
+     ],
+     "outlinedBoxes": 16,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 16,
+     "boxRadius": 20,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 4,
+     "fixed": true,
+     "height": 79,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "1 eyebrow/kicker label(s) above headings: \"Catalogue vivant\" above \"Le catalogue\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "2 tiny uppercase letter-spaced label(s): \"Catalogue vivant\", \"La sélection du vendredi\"",
+   "fix": "Prefer sentence case at body size.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "8 gradient fill(s): span.book-cover.book-cover--plum → linear-gradient(145deg, rgb(133, 80, 128), rgb(77, 40, 79)) | span.book-cover.book-cover--moss → linear-gradient(145deg, rgb(109, 143, 92), rgb(54, 86, 59)) | span.book-cover.book-cover--slate → linear-gradient(145deg, rgb(104, 115, 125), rgb(54, 64, 74))",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "23 box-shadow(s) on elements at rest: input#catalog-search-input → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px | button.button.button--primary → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px | select#catalog-category.select-field → rgba(30, 30, 28, 0.1) 0px 1px 3px 0px, rgba(30, 30, 28, 0.06) 0px 1px 2px -1px",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "12 thin rule(s)/divider line(s): header.site-header 1440px | section.page-hero.page-hero--catalog 1440px | button.catalog-card__cover 256px | button.catalog-card__cover 256px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "16 boxes drawn with a 1px outline.",
+   "fix": "Define a surface by its fill (one tone step from the page) or leave the content unboxed.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "palette-claude",
+   "width": 1440,
+   "message": "Cream + terracotta palette (page background #f3efe6, button #a24a33).",
+   "fix": "Re-draw the palette from the library. This pairing reads as an assistant brand, not yours.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "10 different font sizes (10, 12, 13, 14, 15, 16, 18, 20, 40, 48).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "body-size",
+   "width": 1440,
+   "message": "Body text is 15.2px.",
+   "fix": "Body copy 16–20px.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 0 picture(s) on the page (0 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "measure",
+   "width": 1440,
+   "message": "Longest paragraph runs about 101 characters per line.",
+   "fix": "Cap paragraphs at 45–75 characters (max-width: 60ch).",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "small-text",
+   "width": 1440,
+   "message": "16 text blocks under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "focal-point",
+   "width": 1440,
+   "message": "The first screen has no dominant element: the largest type is 48px (3.3vw) and no single picture holds a third of the viewport.",
+   "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Only 0 element(s) moved while the page loaded and scrolled.",
+   "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/Users/mohamedyassine/Downloads/Nouveau dossier contenant des éléments 5/bibliotheque/.taste-skill/inspect/desktop-fold.jpg",
+   "pages": [
+    "/Users/mohamedyassine/Downloads/Nouveau dossier contenant des éléments 5/bibliotheque/.taste-skill/inspect/desktop-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/Users/mohamedyassine/Downloads/Nouveau dossier contenant des éléments 5/bibliotheque/.taste-skill/inspect/tablet-fold.jpg",
+   "pages": [
+    "/Users/mohamedyassine/Downloads/Nouveau dossier contenant des éléments 5/bibliotheque/.taste-skill/inspect/tablet-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/Users/mohamedyassine/Downloads/Nouveau dossier contenant des éléments 5/bibliotheque/.taste-skill/inspect/mobile-fold.jpg",
+   "pages": [
+    "/Users/mohamedyassine/Downloads/Nouveau dossier contenant des éléments 5/bibliotheque/.taste-skill/inspect/mobile-page-01.jpg"
+   ]
+  }
+ ]
+}

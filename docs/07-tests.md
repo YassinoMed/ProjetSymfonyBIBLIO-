@@ -8,7 +8,7 @@
 | Fonctionnels | WebTestCase | Routes, formulaires, droits par rôle |
 | E2E | Symfony Panther | Parcours : recherche, emprunt, chat |
 | Outils de l'agent | PHPUnit | Chaque outil : droits, entrées invalides, confirmation |
-| Agent (simulé) | Client Claude mocké | Orchestration, gestion des erreurs d'API |
+| Agent (simulé) | Client Gemini mocké | Orchestration, gestion des erreurs d'API |
 | Évaluation du prompt | Jeu de scénarios | Comportement de l'agent (voir ci-dessous) |
 
 ## Tests spécifiques à l'agent

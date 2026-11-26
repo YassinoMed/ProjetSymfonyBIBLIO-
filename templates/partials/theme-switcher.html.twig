@@ -1,0 +1,26 @@
+{% import 'components/icon.html.twig' as ui %}
+<div class="theme-switcher" data-theme-switcher>
+    <button class="icon-button theme-switcher__trigger" type="button" data-theme-toggle aria-expanded="false" aria-controls="theme-menu" aria-label="Changer de direction visuelle">
+        {{ ui.icon('palette') }}
+    </button>
+    <div class="theme-menu" id="theme-menu" data-theme-menu hidden>
+        <p class="theme-menu__label">Direction visuelle</p>
+        <button type="button" data-theme-option="editorial" aria-pressed="true">
+            <span class="theme-swatch theme-swatch--editorial" aria-hidden="true"></span>
+            <span><strong>Éditorial</strong><small>Encre & ivoire</small></span>
+        </button>
+        <button type="button" data-theme-option="premium" aria-pressed="false">
+            <span class="theme-swatch theme-swatch--premium" aria-hidden="true"></span>
+            <span><strong>Premium</strong><small>Minuit & citron</small></span>
+        </button>
+        <button type="button" data-theme-option="chaleureux" aria-pressed="false">
+            <span class="theme-swatch theme-swatch--chaleureux" aria-hidden="true"></span>
+            <span><strong>Chaleureux</strong><small>Forêt & papier</small></span>
+        </button>
+        <button type="button" data-theme-option="futuriste" aria-pressed="false">
+            <span class="theme-swatch theme-swatch--futuriste" aria-hidden="true"></span>
+            <span><strong>Futuriste</strong><small>Noir & signal</small></span>
+        </button>
+    </div>
+    <p class="sr-only" aria-live="polite" data-theme-status></p>
+</div>

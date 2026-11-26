@@ -35,6 +35,9 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
         - { path: ^/connexion, roles: PUBLIC_ACCESS }
+        - { path: ^/membre, roles: ROLE_MEMBER }
+        - { path: ^/bibliothecaire, roles: ROLE_LIBRARIAN }
+        - { path: ^/administrateur, roles: ROLE_ADMIN }
 
 when@test:
     security:

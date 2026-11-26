@@ -1,0 +1,52 @@
+{% import 'components/icon.html.twig' as ui %}
+<aside class="app-sidebar" id="app-sidebar" data-app-sidebar aria-label="Navigation de l’espace">
+    <div class="app-sidebar__top">
+        <a class="brand" href="{{ path('app_home') }}" aria-label="La Bibliothèque, accueil">
+            <span class="brand__mark" aria-hidden="true"><span></span><span></span></span>
+            <span class="brand__name">La Bibliothèque</span>
+        </a>
+        <button class="icon-button app-sidebar__close" type="button" data-sidebar-close aria-label="Fermer le menu">{{ ui.icon('x') }}</button>
+    </div>
+
+    <div class="app-sidebar__role">
+        <span class="avatar avatar--small" aria-hidden="true">{% if role == 'admin' %}AM{% elseif role == 'librarian' %}AB{% else %}YN{% endif %}</span>
+        <span><small>{{ roleLabel }}</small><strong>{% if role == 'admin' %}Amine Benali{% elseif role == 'librarian' %}Amel Bensaïd{% else %}Yasmine Nasri{% endif %}</strong></span>
+    </div>
+
+    <nav class="app-nav" aria-label="Navigation de l’espace">
+        <p class="app-nav__label">Navigation</p>
+        {% if role == 'member' %}
+            <a class="is-active" href="{{ path('app_member') }}">{{ ui.icon('home') }}Vue d’ensemble</a>
+            <a href="{{ path('app_member') }}#loans">{{ ui.icon('book') }}Mes emprunts</a>
+            <a href="{{ path('app_member') }}#reservations">{{ ui.icon('bookmark') }}Réservations</a>
+            <a href="{{ path('app_member') }}#assistant">{{ ui.icon('sparkles') }}Assistant</a>
+        {% elseif role == 'librarian' %}
+            <a class="is-active" href="{{ path('app_librarian') }}">{{ ui.icon('home') }}Vue d’ensemble</a>
+            <a href="{{ path('app_catalog') }}">{{ ui.icon('library') }}Catalogue</a>
+            <a href="{{ path('app_librarian') }}#operations">{{ ui.icon('rotate') }}Prêts & retours</a>
+            <a href="{{ path('app_librarian') }}#members">{{ ui.icon('users') }}Membres</a>
+            <a href="{{ path('app_librarian') }}#assistant">{{ ui.icon('sparkles') }}Assistant</a>
+        {% else %}
+            <a class="is-active" href="{{ path('app_admin') }}">{{ ui.icon('home') }}Pilotage</a>
+            <a href="{{ path('app_admin') }}#members">{{ ui.icon('users') }}Comptes & rôles</a>
+            <a href="{{ path('app_admin') }}#rules">{{ ui.icon('settings') }}Règles</a>
+            <a href="{{ path('app_admin') }}#audit">{{ ui.icon('audit') }}Journal d’audit</a>
+        {% endif %}
+    </nav>
+
+    <div class="app-sidebar__spacer"></div>
+
+    <div class="sidebar-assistant">
+        <span class="sidebar-assistant__icon">{{ ui.icon('sparkles') }}</span>
+        <p><strong>Besoin d’un repère ?</strong><span>L’assistant connaît vos prochaines échéances.</span></p>
+        <a href="{{ path('app_member') }}#assistant" aria-label="Ouvrir l’assistant">{{ ui.icon('arrow-right') }}</a>
+    </div>
+
+    <div class="app-sidebar__footer">
+        {% include 'partials/theme-switcher.html.twig' %}
+        <form method="post" action="{{ path('app_logout') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+            <button class="sidebar-logout" type="submit">{{ ui.icon('logout') }}Se déconnecter</button>
+        </form>
+    </div>
+</aside>

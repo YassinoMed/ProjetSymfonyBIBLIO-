@@ -20,7 +20,7 @@
 Controller / ChatController
         │
         ▼
- Services métier  ◄────────── AgentToolRegistry ◄── AgentService ──► API Claude
+ Services métier  ◄────────── AgentToolRegistry ◄── AgentService ──► API Gemini
  (LoanService, ReservationService, CatalogService)        │
         │                                                  ▼
         ▼                                            AuditLogger
@@ -31,9 +31,9 @@ Les voters Symfony protègent chaque service sensible ; ils sont appliqués que 
 ## Flux de l'agent
 1. L'utilisateur envoie un message à `ChatController` (authentifié).
 2. `AgentService` construit la requête : prompt système + historique + définitions d'outils.
-3. Claude répond par du texte ou une demande d'outil.
+3. Gemini répond par du texte ou une demande d'outil.
 4. `AgentToolRegistry` exécute l'outil **avec l'identité de l'utilisateur** (vérification des droits).
-5. Outil de lecture : résultat renvoyé à Claude. Outil d'écriture : proposition renvoyée à l'utilisateur pour **confirmation**, exécution seulement après son accord.
+5. Outil de lecture : résultat renvoyé à Gemini. Outil d'écriture : proposition renvoyée à l'utilisateur pour **confirmation**, exécution seulement après son accord.
 6. La réponse finale est affichée ; l'action est consignée dans `AuditLog`.
 
 ## Structure du code

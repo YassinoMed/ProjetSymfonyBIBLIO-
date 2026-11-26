@@ -7,6 +7,7 @@ $finder = (new PhpCsFixer\Finder())
     ->exclude([
         'var',
         'vendor',
+        'config/secrets',
     ])
     ->notPath([
         'config/bundles.php',

@@ -22,10 +22,16 @@
 - [ ] L'agent donne les mêmes réponses que l'interface sur les règles (durée, plafond).
 - [ ] Face à une injection de prompt dans un champ du catalogue, l'agent ne change pas de comportement.
 - [ ] Si l'API est indisponible, le reste de l'application fonctionne.
+- [x] `POST /api/ai/generate` redirige un visiteur vers la connexion et renvoie `403` sans `ROLE_MEMBER`.
+- [x] Un prompt vide, trop court ou trop long renvoie `422` ; un contenu non JSON renvoie `415`.
+- [x] La 11e requête d'un membre dans la même minute renvoie `429` avec `Retry-After`.
+- [x] Une erreur de l'API Gemini renvoie `502` sans exposer la clé ni le détail amont.
+- [x] Le panneau de chat du tableau de bord envoie la question à `/api/ai/generate` avec le jeton CSRF et affiche les erreurs sans HTML brut.
 
 ### Sécurité
 - [ ] Chaque route et chaque outil est protégé par un voter testé.
-- [ ] Aucune clé API dans le dépôt ni dans les logs.
+- [x] Aucune clé API dans le dépôt ni dans les logs.
+- [x] La clé Gemini est stockée dans le coffre Symfony et n'est jamais envoyée au navigateur.
 
 ## Scénarios de recette
 1. Membre : chercher un livre indisponible → le réserver via l'agent → confirmer → vérifier la position.
@@ -39,5 +45,5 @@
 - [ ] Tests, PHPStan et CI verts
 - [ ] Sauvegarde et restauration testées
 - [ ] Variables d'environnement de production renseignées
-- [ ] Quotas de l'API Claude configurés, alertes de coût actives
+- [ ] Quotas de l'API Gemini configurés, alertes de coût actives
 - [ ] Journal d'audit vérifié

@@ -7,7 +7,7 @@
 | Framework | Symfony 8.x | Sécurité, écosystème (Security, Messenger, Doctrine) ; suivre les versions mineures et la politique de support |
 | Base de données | PostgreSQL | Intégrité, recherche plein texte, transactions |
 | Front | Twig + Turbo/Stimulus | Simplicité, peu de JavaScript à maintenir |
-| IA | API Claude, appel d'outils (tool use) | Actions structurées, contrôle côté serveur |
+| IA | API Gemini, appel d'outils (function calling) | Actions structurées, contrôle côté serveur |
 | Tests | PHPUnit + Panther | Couverture unitaire, fonctionnelle et E2E |
 
 ## Approche
@@ -22,6 +22,6 @@
 | Injection de prompt (données du catalogue malveillantes) | Contenu des outils traité comme donnée, droits vérifiés côté serveur, pas d'outil sensible sans confirmation |
 | Fuite de données entre membres | Filtrage par utilisateur dans chaque outil, tests dédiés |
 | Coût / abus de l'API | Quotas par utilisateur, limite de tokens, cache |
-| Indisponibilité de l'API Claude | Application pleinement utilisable sans l'agent (dégradation gracieuse) |
+| Indisponibilité de l'API Gemini | Application pleinement utilisable sans l'agent (dégradation gracieuse) |
 | Dérive des règles entre UI et agent | Une seule source : les services métier + `03-regles.md` |
 | Hallucinations de l'agent | Réponses basées sur les résultats d'outils, sinon aveu d'ignorance |

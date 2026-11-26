@@ -13,6 +13,11 @@
 /.php-cs-fixer.cache
 /.phpunit.cache
 /.phpstan.cache
+/node_modules/
+/public/build/
+
+# Ne jamais versionner les clés privées du coffre Symfony (dev et prod).
+/config/secrets/*/*.decrypt.private.php
 
 ###> phpunit/phpunit ###
 /phpunit.xml

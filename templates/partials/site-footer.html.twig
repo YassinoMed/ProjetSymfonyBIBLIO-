@@ -1,0 +1,46 @@
+{% import 'components/icon.html.twig' as ui %}
+<footer class="site-footer">
+    <div class="container site-footer__grid">
+        <div class="site-footer__brand">
+            <a class="brand brand--light" href="{{ path('app_home') }}">
+                <span class="brand__mark" aria-hidden="true"><span></span><span></span></span>
+                <span class="brand__name">La Bibliothèque</span>
+            </a>
+            <p>Des livres à découvrir, des rencontres à prolonger, un service qui vous suit.</p>
+        </div>
+        <div>
+            <h2>Explorer</h2>
+            <ul>
+                <li><a href="{{ path('app_catalog') }}">Catalogue</a></li>
+                {% if not app.user %}
+                    <li><a href="{{ path('app_member') }}">Espace membre</a></li>
+                    <li><a href="{{ path('app_librarian') }}">Espace bibliothécaire</a></li>
+                {% endif %}
+                <li><a href="{{ path('app_home') }}#selection">Sélection du moment</a></li>
+            </ul>
+        </div>
+        <div>
+            <h2>Une question ?</h2>
+            <ul>
+                <li><a href="{{ path('app_member') }}#assistant">Demander à l’assistant</a></li>
+                {% if not app.user %}
+                    <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+                {% endif %}
+                <li><a href="mailto:bonjour@bibliotheque.test">bonjour@bibliotheque.test</a></li>
+            </ul>
+        </div>
+        <div class="site-footer__newsletter">
+            <p class="eyebrow">La sélection du vendredi</p>
+            <h2>Un livre, une fois par semaine.</h2>
+            <form data-newsletter-form>
+                <label class="sr-only" for="newsletter-email">Votre adresse e-mail</label>
+                <input id="newsletter-email" type="email" name="email" placeholder="vous@exemple.fr" autocomplete="email" required>
+                <button class="icon-button" type="submit" aria-label="S’inscrire à la sélection du vendredi">{{ ui.icon('arrow-right') }}</button>
+            </form>
+        </div>
+    </div>
+    <div class="container site-footer__bottom">
+        <p>© 2026 La Bibliothèque · Vertical slice d’expérience</p>
+        <p>Accessibilité · Confidentialité · Mentions légales</p>
+    </div>
+</footer>

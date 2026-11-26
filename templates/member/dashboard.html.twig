@@ -1,0 +1,132 @@
+{% extends 'app/layout.html.twig' %}
+{% import 'components/icon.html.twig' as ui %}
+
+{% block title %}Mon espace — La Bibliothèque{% endblock %}
+
+{% block dashboard %}
+<section class="dashboard-welcome" data-reveal>
+    <div>
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Votre espace de lecture</p>
+        <h1>Bonjour Yasmine</h1>
+        <p class="lede">Voici ce qui se passe dans vos lectures aujourd’hui.</p>
+    </div>
+    <div class="dashboard-welcome__actions">
+        <a class="button button--primary" href="{{ path('app_catalog') }}">{{ ui.icon('search') }} Trouver un livre</a>
+        <a class="button" href="#assistant">{{ ui.icon('sparkles') }} Demander à l’assistant</a>
+    </div>
+</section>
+
+<section class="metric-grid" aria-label="Vue d’ensemble des prêts">
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--ochre">{{ ui.icon('book') }}</span>
+        <div><small>Emprunts en cours</small><strong>{{ loans|length }}</strong><span class="metric-card__trend">2 Cette semaine</span></div>
+    </article>
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--cobalt">{{ ui.icon('bookmark') }}</span>
+        <div><small>Réservations</small><strong>{{ reservations|length }}</strong><span class="metric-card__trend">1 prête à partir</span></div>
+    </article>
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--moss">{{ ui.icon('trend') }}</span>
+        <div><small>Livres lus</small><strong>24</strong><span class="metric-card__trend metric-card__trend--warning">+3 ce mois-ci</span></div>
+    </article>
+    <article class="metric-card">
+        <span class="metric-card__icon metric-card__icon--plum">{{ ui.icon('calendar') }}</span>
+        <div><small>Prochaine échéance</small><strong>3 j.</strong><span class="metric-card__trend">28 novembre</span></div>
+    </article>
+</section>
+
+<div class="dashboard-grid dashboard-grid--member">
+    <section class="dashboard-panel dashboard-panel--feature" id="loans">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">À surveiller</p><h2>Prochaines échéances</h2></div>
+            <span class="count-pill count-pill--danger">1 urgente</span>
+        </div>
+        {% if loans|first %}
+            <div class="due-feature">
+                <span class="book-cover book-cover--{{ loans|first.accent }}" aria-hidden="true">
+                    <span class="book-cover__eyebrow">Votre lecture</span>
+                    <strong>{{ loans|first.title }}</strong>
+                    <small>{{ loans|first.author }}</small>
+                    <i></i>
+                </span>
+                <div class="due-feature__content">
+                    <h3>{{ loans|first.title }}</h3>
+                    <p>{{ loans|first.author }}</p>
+                    <div class="due-feature__meta">
+                        <span>{{ ui.icon('calendar') }} À rendre le {{ loans|first.dueDate }}</span>
+                        <span>{{ ui.icon('clock') }} Encore {{ loans|first.daysLeft }}</span>
+                    </div>
+                </div>
+                <div class="due-feature__actions">
+                    <button class="button button--primary button--small" type="button" data-chat-confirm>Prolonger</button>
+                    <button class="button button--small" type="button" data-toast-message="Le renouvellement a été préparé.">Renouveler</button>
+                </div>
+            </div>
+        {% endif %}
+        <div class="loan-list">
+            {% for loan in loans %}
+                <article class="loan-row" data-loan-row>
+                    <span class="book-cover book-cover--{{ loan.accent }}" aria-hidden="true"><strong>{{ loan.title }}</strong><i></i></span>
+                    <div class="loan-row__title"><strong>{{ loan.title }}</strong><small>{{ loan.author }}</small></div>
+                    <div class="loan-row__status">
+                        <span class="status-dot {{ loop.first ? 'status-dot--warning' : 'status-dot--loan' }}"></span>
+                        <span><strong>{{ loan.status }}</strong><small>{{ loan.dueDate }}</small></span>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+        <a class="panel-footer-link" href="{{ path('app_catalog') }}">Explorer le catalogue →</a>
+    </section>
+
+    <section class="dashboard-panel" id="reservations">
+        <div class="dashboard-panel__head">
+            <div><p class="eyebrow">File d’attente</p><h2>Vos réservations</h2></div>
+            <span class="count-pill">{{ reservations|length }}</span>
+        </div>
+        <div class="reservation-list">
+            {% for reservation in reservations %}
+                <article class="reservation-row" data-reservation-row>
+                    <span class="reservation-row__position"><strong>{{ reservation.position }}</strong><small>place</small></span>
+                    <div><strong>{{ reservation.title }}</strong><small>{{ reservation.author }}</small></div>
+                    <span class="reservation-row__status reservation-row__status--{{ reservation.status }}">{{ reservation.statusLabel }}</span>
+                    <small>{{ reservation.readyDate }}</small>
+                </article>
+            {% endfor %}
+        </div>
+        <button class="panel-footer-link" type="button" data-toast-message="La liste complète sera disponible dans la prochaine version.">Voir toutes les réservations →</button>
+    </section>
+
+    <section class="dashboard-panel dashboard-panel--wide" id="assistant">
+        <div class="assistant-panel__intro">
+            <span class="assistant-panel__orb">{{ ui.icon('sparkles') }}</span>
+            <div><p class="eyebrow">Assistant de lecture</p><h2>Une question sur vos lectures ?</h2><p class="muted">Réponses générales sur le catalogue et les services. Pour vos emprunts et pénalités, consultez votre espace.</p></div>
+        </div>
+        <div class="assistant-panel__prompts">
+            <button type="button" data-chat-prompt="Puis-je prolonger mon prêt ?">Prolonger un prêt</button>
+            <button type="button" data-chat-prompt="Quel livre me ressemble ?">Trouver une suggestion</button>
+            <button type="button" data-chat-prompt="Ai-je une pénalité ?">Vérifier ma situation</button>
+        </div>
+        <div
+            class="chat-panel"
+            data-chat
+            data-chat-endpoint="{{ path('api_ai_generate') }}"
+            data-chat-token="{{ csrf_token('ai_generate') }}"
+        >
+            <div class="chat-panel__messages" data-chat-messages aria-live="polite" aria-atomic="false">
+                <div class="chat-message chat-message--assistant">
+                    <span class="chat-message__avatar" aria-hidden="true">{{ ui.icon('sparkles') }}</span>
+                    <p>Bonjour Yasmine. Vous avez <strong>{{ loans|length }} prêts en cours</strong> et une échéance dans 3 jours. Que puis-je faire pour vous ?</p>
+                </div>
+            </div>
+            <form class="chat-panel__composer" data-chat-form action="{{ path('app_member') }}" method="get">
+                <label class="sr-only" for="member-chat-input">Votre question</label>
+                <textarea id="member-chat-input" name="question" rows="1" maxlength="2000" placeholder="Écrivez votre question…" data-chat-input></textarea>
+                <button type="submit" aria-label="Envoyer le message">{{ ui.icon('arrow-right') }}</button>
+            </form>
+            <noscript>
+                <p class="chat-panel__notice">L’assistant nécessite JavaScript pour envoyer votre question.</p>
+            </noscript>
+        </div>
+    </section>
+</div>
+{% endblock %}
